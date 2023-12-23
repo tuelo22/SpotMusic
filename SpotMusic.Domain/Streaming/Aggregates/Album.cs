@@ -11,7 +11,7 @@
 
         public static Album Criar(String nome, List<Musica> musicas)
         {
-            if (nome == null) throw new Exception("E obrigatorio informar o nome do album.");
+            if (String.IsNullOrEmpty(nome)) throw new Exception("E obrigatorio informar o nome do album.");
 
             if (musicas == null || musicas.Count == 0) throw new Exception("E obrigatorio informar ao menos uma musica ao album.");
 

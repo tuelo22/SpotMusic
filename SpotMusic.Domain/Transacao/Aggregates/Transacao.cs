@@ -11,6 +11,5 @@ namespace SpotMusic.Domain.Transacao.Aggregates
         public Monetario Valor { get; set; }
         public string Descricao { get; set; }
         public Merchant Merchant { get; set;}
-
     }
 }

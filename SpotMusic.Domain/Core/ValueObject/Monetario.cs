@@ -8,7 +8,7 @@
         {
             if (valor < 0)
             {
-                throw new ArgumentException("Valor monteário não pode ser negativo.");
+                throw new Exception("Valor monteário não pode ser negativo.");
             }
 
             Valor = valor;

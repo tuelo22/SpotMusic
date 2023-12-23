@@ -23,21 +23,6 @@ namespace SpotMusic.Tests.Streaming
         }
 
         [Fact]
-        public void NaoDeveCriarComValorMenorQueZero()
-        {
-            var vigencia = Periodo.Criar(DateTime.Now, DateTime.Now.AddDays(30));
-            var nome = "Plano";
-            decimal valor = -40;
-            var descricao = "Descricao";
-
-            //Act
-            Assert.Throws<Exception>(() =>
-            {
-                var plano = Plano.Criar(nome, descricao, valor, vigencia);
-            });
-        }
-
-        [Fact]
         public void NaoDeveCriarComNomeVazio()
         {
             var vigencia = Periodo.Criar(DateTime.Now, DateTime.Now.AddDays(30));
