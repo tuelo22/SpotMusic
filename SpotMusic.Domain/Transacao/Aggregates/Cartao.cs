@@ -20,7 +20,7 @@ namespace SpotMusic.Domain.Transacao.Aggregates
         {
             this.IsCartaoAtivo();
 
-            Transacao transacao = new Transacao()
+            Transacao transacao = new()
             {
                 Merchant = merchant,
                 Valor = valor,
