@@ -2,11 +2,16 @@
 {
     public record Endereco
     {
-        public String Estado { get; set; }
-        public String Cidade { get; set; }
-        public String Rua { get; set; }
-        public String Numero { get; set; }
+        public required String Estado { get; set; }
+        public required String Cidade { get; set; }
+        public required String Rua { get; set; }
+        public required String Numero { get; set; }
         public String? Complemento { get; set; }
+
+        public Endereco()
+        {
+               
+        }
 
         public static Endereco Criar(String estado, String cidade, String Rua, String numero, String? complemento)
         {

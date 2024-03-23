@@ -18,7 +18,7 @@ namespace SpotMusic.Tests.TransacaoTest
                 EnderecoCobranca = Endereco.Criar("Rio de Janeiro", "Rio de Janeiro", "Rua dos bobos", "0", null)
             };
 
-            var merchant = new Merchant("Oi oi oi");
+            var merchant = Merchant.Criar("Oi oi oi");
 
             cartao.CriarTransacao(merchant, 500, "Teste");
 
@@ -36,7 +36,7 @@ namespace SpotMusic.Tests.TransacaoTest
                 EnderecoCobranca = Endereco.Criar("Rio de Janeiro", "Rio de Janeiro", "Rua dos bobos", "0", null)
             };
 
-            var merchant = new Merchant("Oi oi oi");
+            var merchant = Merchant.Criar("Oi oi oi");
 
             Assert.Throws<Exception>(() => cartao.CriarTransacao(merchant, 500, "Teste"));
         }

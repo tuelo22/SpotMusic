@@ -3,7 +3,7 @@
     public class Interprete
     {
         public Guid Id { get; set; }
-        public String Nome { get; set; }
+        public required String Nome { get; set; }
 
         public static Interprete Criar(String Nome)
         {

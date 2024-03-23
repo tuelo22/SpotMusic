@@ -7,7 +7,7 @@ namespace SpotMusic.Domain.Conta.Aggregates
     public class Assinatura
     {
         public Guid Id { get; set; }
-        public Plano Plano { get; set; }
+        public virtual Plano Plano { get; set; }
         public TipoStatus Status { get; set; }
         public Periodo Vigencia { get; set; }
 

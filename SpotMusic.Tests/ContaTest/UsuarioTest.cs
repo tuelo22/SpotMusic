@@ -41,17 +41,19 @@ namespace SpotMusic.Tests.ContaTest
             string nome = "Dummy Usuario";
             string email = "teste@teste.com";
             string senha = "123456";
+            string telefone = "991902196";
 
 
             //Act
             Usuario usuario = new();
-            usuario.CriarConta(nome, email, senha, DateTime.Now, plano, cartao);
+            usuario.CriarConta(nome, email, senha, telefone, DateTime.Now, plano, cartao);
 
             //Assert
             Assert.NotNull(usuario.Email);
             Assert.NotNull(usuario.Nome);
             Assert.True(usuario.Email == email);
             Assert.True(usuario.Nome == nome);
+            Assert.True(usuario.Telefone == telefone);
             Assert.True(usuario.Senha != senha);
 
             Assert.True(usuario.Assinaturas.Count > 0);
@@ -82,6 +84,7 @@ namespace SpotMusic.Tests.ContaTest
             String Rua = "Rua dos bobos";
             String Numero = "0";
             String Complemento = "Tão tão distante";
+            String telefone = "991902196";
 
             var endereco = Endereco.Criar(Estado, Cidade, Rua, Numero, Complemento);
 
@@ -102,7 +105,7 @@ namespace SpotMusic.Tests.ContaTest
             Assert.Throws<Exception>(() =>
             {
                 Usuario usuario = new();
-                usuario.CriarConta(nome, email, senha, DateTime.Now, plano, cartao);
+                usuario.CriarConta(nome, email, senha, telefone, DateTime.Now, plano, cartao);
             });
         }
     }

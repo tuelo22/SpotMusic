@@ -9,8 +9,8 @@ namespace SpotMusic.Domain.Notificacao.Aggregates
         public DateTime Data { get; set; }
         public String Mensagem { get; set; }
         public String Titulo { get; set; }
-        public Usuario Destinatario { get; set; }
-        public Usuario? Remetente { get; set; }
+        public virtual Usuario Destinatario { get; set; }
+        public virtual Usuario? Remetente { get; set; }
 
         public TipoNotificacao TipoNotificacao { get; set; }
 

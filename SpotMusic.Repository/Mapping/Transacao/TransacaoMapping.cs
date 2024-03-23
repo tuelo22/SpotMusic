@@ -14,6 +14,11 @@ namespace SpotMusic.Repository.Mapping.Transacao
             builder.Property(x => x.Id).ValueGeneratedOnAdd();
             builder.Property(x => x.Data).IsRequired();
             builder.Property(x => x.Descricao).IsRequired().HasMaxLength(50);
+            
+            builder.OwnsOne(d => d.Valor, c =>
+            {
+                c.Property(x => x.Valor).HasColumnName("ValorTransacao").IsRequired();
+            });
 
             builder.OwnsOne(d => d.Merchant, c =>
             {

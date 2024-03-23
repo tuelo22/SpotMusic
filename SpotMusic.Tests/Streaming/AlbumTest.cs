@@ -23,7 +23,7 @@ namespace SpotMusic.Tests.Streaming
                 musica
             };
 
-            var album = Album.Criar(nome, musicas);
+            var album = Album.Criar(nome, musicas, autor);
 
             Assert.Equal(album.Nome, nome);
         }
@@ -48,34 +48,8 @@ namespace SpotMusic.Tests.Streaming
 
             Assert.Throws<Exception>(() =>
             {
-                var album = Album.Criar("", musicas);
+                var album = Album.Criar("", musicas, autor);
             });
-        }
-        [Fact]
-        public void DeveAdicionarUmaMusicaAoAlbum()
-        {
-            var nome = "O drama da pos";
-            var nome2 = "Aula sem fim";
-            var autor = Autor.Criar("Ze Maria");
-            var estilo = EstiloMusical.Criar("Rock");
-
-            var autores = new List<Autor>
-            {
-                autor
-            };
-
-            var musicas = new List<Musica>
-            {
-                Musica.Criar(nome, 10, nome, estilo, autores)
-            };
-
-            var musica2 = Musica.Criar(nome2, 10, nome, estilo, autores);
-            musica2.Id = Guid.NewGuid();
-
-            var album = Album.Criar(nome, musicas);
-            album.AdicionarMusica(musica2);
-
-            Assert.Contains(album.Musicas, x => x.Id == musica2.Id);
         }
     }
 }

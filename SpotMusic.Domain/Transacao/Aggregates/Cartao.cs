@@ -11,10 +11,10 @@ namespace SpotMusic.Domain.Transacao.Aggregates
 
         public Guid Id { get; set; }
         public TipoStatus Status { get; set; }
-        public Monetario Limite { get; set; }
-        public String Numero { get; set; }
-        public List<Transacao> Transacoes { get; set; } = new List<Transacao>();
-        public Endereco EnderecoCobranca { get; set; }
+        public required Monetario Limite { get; set; }
+        public required String Numero { get; set; }
+        public virtual IList<Transacao> Transacoes { get; set; } = [];
+        public required Endereco EnderecoCobranca { get; set; }
 
         public void CriarTransacao(Merchant merchant, Monetario valor, string descricao = "")
         {
@@ -77,5 +77,6 @@ namespace SpotMusic.Domain.Transacao.Aggregates
                 throw new Exception("Cartão não está ativo");
             }
         }
+
     }
 }

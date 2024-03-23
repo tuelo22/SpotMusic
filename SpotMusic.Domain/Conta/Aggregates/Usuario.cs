@@ -2,7 +2,6 @@
 using SpotMusic.Domain.Core.ValueObject;
 using SpotMusic.Domain.Streaming.Aggregates;
 using SpotMusic.Domain.Streaming.Enum;
-using SpotMusic.Domain.Streaming.ValueObject;
 using SpotMusic.Domain.Transacao.Aggregates;
 using SpotMusic.Domain.Transacao.ValueObject;
 using System.Security.Cryptography;
@@ -19,17 +18,18 @@ namespace SpotMusic.Domain.Conta.Aggregates
         public String Email { get; set; }
         public String Telefone { get; set; }
         public DateTime DataNascimento { get; set; }
-        public List<Cartao> Cartoes { get; set; } = new List<Cartao>();
-        public List<Assinatura> Assinaturas { get; set; } = new List<Assinatura>();
-        public List<Playlist> Playlists { get; set; } = new List<Playlist>();
-        public List<Notificacao.Aggregates.Notificacao> Notificacoes { get; set; } = new List<Notificacao.Aggregates.Notificacao>();
+        public virtual IList<Cartao> Cartoes { get; set; } = new List<Cartao>();
+        public virtual IList<Assinatura> Assinaturas { get; set; } = new List<Assinatura>();
+        public virtual IList<Playlist> Playlists { get; set; } = new List<Playlist>();
+        public virtual IList<Notificacao.Aggregates.Notificacao> Notificacoes { get; set; } = new List<Notificacao.Aggregates.Notificacao>();
 
-        public void CriarConta(String nome, String email, String senha, DateTime dataNascimento, Plano plano, Cartao cartao)
+        public void CriarConta(String nome, String email, String senha, String Telefone,DateTime dataNascimento, Plano plano, Cartao cartao)
         {
             this.Nome = nome;
             this.Email = email;
             this.Senha = CriptografarSenha(senha);
             this.DataNascimento = dataNascimento;
+            this.Telefone = Telefone;
             this.AssinarPlano(plano, cartao);
             this.AdicionarCarto(cartao);
             this.CriarPlayList();
@@ -57,7 +57,7 @@ namespace SpotMusic.Domain.Conta.Aggregates
         private void AssinarPlano(Plano plano, Cartao cartao)
         {
             cartao.CriarTransacao(
-                new Merchant(plano.Nome),
+                Merchant.Criar(plano.Nome),
                 new Monetario(plano.Valor),
                 plano.Descricao);
 

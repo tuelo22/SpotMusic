@@ -7,12 +7,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpotMusic.Domain", "SpotMus
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpotMusic.Tests", "SpotMusic.Tests\SpotMusic.Tests.csproj", "{7A164FB9-C073-4948-AE0D-2BFAF452A7C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpotMusic.Repository", "SpotMusic.Repository\SpotMusic.Repository.csproj", "{420CF3D8-4F72-45E5-B2DE-A17246D11542}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpotMusic.Repository", "SpotMusic.Repository\SpotMusic.Repository.csproj", "{420CF3D8-4F72-45E5-B2DE-A17246D11542}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C870910D-327E-4204-98B5-2C559638D2A7}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpotMusic.Api", "SpotMusic.Api\SpotMusic.Api.csproj", "{761AA513-B563-4DFF-BB94-4C01D5B7A508}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpotMusic.Application", "SpotMusic.Application\SpotMusic.Application.csproj", "{4979CD4E-EB07-4468-A67D-956EC4DB2C66}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,6 +36,14 @@ Global
 		{420CF3D8-4F72-45E5-B2DE-A17246D11542}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{420CF3D8-4F72-45E5-B2DE-A17246D11542}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{420CF3D8-4F72-45E5-B2DE-A17246D11542}.Release|Any CPU.Build.0 = Release|Any CPU
+		{761AA513-B563-4DFF-BB94-4C01D5B7A508}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{761AA513-B563-4DFF-BB94-4C01D5B7A508}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{761AA513-B563-4DFF-BB94-4C01D5B7A508}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{761AA513-B563-4DFF-BB94-4C01D5B7A508}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4979CD4E-EB07-4468-A67D-956EC4DB2C66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4979CD4E-EB07-4468-A67D-956EC4DB2C66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4979CD4E-EB07-4468-A67D-956EC4DB2C66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4979CD4E-EB07-4468-A67D-956EC4DB2C66}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

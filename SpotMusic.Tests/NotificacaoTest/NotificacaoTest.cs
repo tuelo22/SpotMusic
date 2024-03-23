@@ -44,13 +44,14 @@ namespace SpotMusic.Tests.NotificacaoTest
             string nome = "Dummy Usuario";
             string email = "teste@teste.com";
             string senha = "123456";
+            String telefone = "991902196";
 
             //Act
             Usuario usuario = new()
             {
                 Id = Guid.NewGuid(),
             };
-            usuario.CriarConta(nome, email, senha, DateTime.Now, plano, cartao);
+            usuario.CriarConta(nome, email, senha, telefone, DateTime.Now, plano, cartao);
 
             string titulo = "Oi to aqui";
             string mensagem = "Não to não, sei lá";
@@ -94,13 +95,13 @@ namespace SpotMusic.Tests.NotificacaoTest
             string nome = "Dummy Usuario";
             string email = "teste@teste.com";
             string senha = "123456";
-
+            String telefone = "991902196";
             //Act
             Usuario usuario = new()
             {
                 Id = Guid.NewGuid(),
             };
-            usuario.CriarConta(nome, email, senha, DateTime.Now, plano, cartao);
+            usuario.CriarConta(nome, email, senha, telefone, DateTime.Now, plano, cartao);
 
             string titulo = "Oi to aqui";
             string mensagem = "Não to não, sei lá";
@@ -142,13 +143,14 @@ namespace SpotMusic.Tests.NotificacaoTest
             string nome = "Dummy Usuario";
             string email = "teste@teste.com";
             string senha = "123456";
+            string telefone = "2121212231";
 
             //Act
             Usuario usuario = new()
             {
                 Id = Guid.NewGuid(),
             };
-            usuario.CriarConta(nome, email, senha, DateTime.Now, plano, cartao);
+            usuario.CriarConta(nome, email, senha, telefone, DateTime.Now, plano, cartao);
 
             string titulo = "";
             string mensagem = "Não to não, sei lá";
@@ -190,13 +192,13 @@ namespace SpotMusic.Tests.NotificacaoTest
             string nome = "Dummy Usuario";
             string email = "teste@teste.com";
             string senha = "123456";
-
+            string telefone = "2121212231";
             //Act
             Usuario usuario = new()
             {
                 Id = Guid.NewGuid(),
             };
-            usuario.CriarConta(nome, email, senha, DateTime.Now, plano, cartao);
+            usuario.CriarConta(nome, email, senha, telefone, DateTime.Now, plano, cartao);
 
             string titulo = "Oi to aqui";
             string mensagem = "";

@@ -40,13 +40,13 @@ namespace SpotMusic.Tests.Streaming
             string nomeUsuario = "Dummy Usuario";
             string email = "teste@teste.com";
             string senha = "123456";
-
+            string telefone = "2121212231";
             //Act
             Usuario usuario = new()
             {
                 Id = Guid.NewGuid(),
             };
-            usuario.CriarConta(nomeUsuario, email, senha, DateTime.Now, plano, cartao);
+            usuario.CriarConta(nomeUsuario, email, senha, telefone, DateTime.Now, plano, cartao);
 
             var nome = "Samba";
 
@@ -86,13 +86,14 @@ namespace SpotMusic.Tests.Streaming
             string nomeUsuario = "Dummy Usuario";
             string email = "teste@teste.com";
             string senha = "123456";
+            string telefone = "21212121212";
 
             //Act
             Usuario usuario = new()
             {
                 Id = Guid.NewGuid(),
             };
-            usuario.CriarConta(nomeUsuario, email, senha, DateTime.Now, plano, cartao);
+            usuario.CriarConta(nomeUsuario, email, senha, telefone, DateTime.Now, plano, cartao);
 
             var nome = "Samba";
 

@@ -4,6 +4,11 @@
     {
         public int Valor { get; set; }
 
+        public Duracao()
+        {
+                
+        }
+
         public Duracao(int valor)
         {
             if(valor < 0)

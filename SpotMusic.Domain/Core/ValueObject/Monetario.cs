@@ -4,6 +4,11 @@
     {
         public decimal Valor { get; set; }
 
+        public Monetario()
+        {
+                
+        }
+
         public Monetario(decimal valor)
         {
             if (valor < 0)

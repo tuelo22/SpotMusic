@@ -5,19 +5,17 @@ namespace SpotMusic.Domain.Streaming.Aggregates
     public class Musica
     {
         public Guid Id { get; set; }
-        public string Nome { get; set; }
-        public Duracao Duracao { get; set; }
-        public String Letra { get; set; }
-        public EstiloMusical EstiloMusical { get; set; }
-        public List<Autor> Autores { get; set; } = new List<Autor>();
-        public List<Interprete> Interpretes { get; set; } = new List<Interprete>();
-        public List<Playlist> Playlists { get; set; } = new List<Playlist>();
+        public required string Nome { get; set; }
+        public required Duracao Duracao { get; set; }
+        public required String Letra { get; set; }
+        public virtual EstiloMusical EstiloMusical { get; set; }
+        public virtual IList<Autor> Autores { get; set; } = [];
+        public virtual IList<Interprete> Interpretes { get; set; } = [];
+        public virtual IList<Playlist> Playlists { get; set; } = [];
 
         public void AdicionarAutor(Autor autor) => this.Autores.Add(autor);
-        public void AdicionarAutor(List<Autor> autores) => this.Autores.AddRange(autores);
 
         public void AdicionarInterprete(Interprete interprete) => this.Interpretes.Add(interprete);
-        public void AdicionarInterprete(List<Interprete> interpretes) => this.Interpretes.AddRange(interpretes);
 
         public static Musica Criar(String nome, Duracao duracao,
             String letra, EstiloMusical estilo, List<Autor> autores)
@@ -31,10 +29,9 @@ namespace SpotMusic.Domain.Streaming.Aggregates
                 Duracao = duracao,
                 Letra = letra,
                 EstiloMusical = estilo,
-
             };
 
-            musica.AdicionarAutor(autores);
+            autores.ForEach(x => musica.AdicionarAutor(x));
 
             return musica;
         }

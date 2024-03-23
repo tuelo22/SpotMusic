@@ -8,10 +8,10 @@ namespace SpotMusic.Domain.Streaming.Aggregates
         public Guid Id { get; set; }
         public String Nome { get; set; }
         public TipoPlayList TipoPlayList { get; set; }
-        public Usuario Autor { get; set; }
+        public virtual Usuario Autor { get; set; }
         public DateTime DataCriacao { get; set; }
         public bool Publica { get; set; }
-        public List<Musica> Musicas { get; set; } = new List<Musica>();
+        public virtual IList<Musica> Musicas { get; set; } = [];
 
         public static Playlist Criar(String Nome, TipoPlayList tipo, Usuario autor, bool publica)
         {
