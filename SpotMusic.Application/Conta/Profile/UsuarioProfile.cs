@@ -1,6 +1,8 @@
-﻿using SpotMusic.Application.Conta.Request;
+﻿using SpotMusic.Application.Conta.Dto;
+using SpotMusic.Application.Conta.Request;
 using SpotMusic.Domain.Conta.Aggregates;
 using SpotMusic.Domain.Core.Enum;
+using SpotMusic.Domain.Streaming.Aggregates;
 using SpotMusic.Domain.Transacao.Aggregates;
 
 namespace SpotMusic.Application.Conta.Profile
@@ -9,6 +11,11 @@ namespace SpotMusic.Application.Conta.Profile
     {
         public UsuarioProfile()
         {
+            CreateMap<Plano, PlanoDto>().AfterMap((s, d) =>
+            {
+                d.Valor = s.Valor.Valor;
+            });
+
             CreateMap<UsuarioDto, Usuario>();
 
             CreateMap<Usuario, UsuarioDto>()
@@ -18,13 +25,22 @@ namespace SpotMusic.Application.Conta.Profile
 
                     if (plano != null)
                         d.PlanoId = plano.Id;
+
+                    d.Senha = string.Empty;
                 })
                 .ReverseMap();
 
             CreateMap<CartaoDto, Cartao>()
-                .ForPath(x => x.Limite.Valor, m => m.MapFrom(f => f.Limite))
-                .ForMember(d => d.Status, opt => opt.MapFrom(s => Enum.Parse<TipoStatus>(s.Status)))
-                .ReverseMap();
+                .AfterMap((s, d) =>
+                {
+                    s.CVV = null;
+                    s.Estado = d.EnderecoCobranca.Estado;
+                    s.Cidade = d.EnderecoCobranca.Cidade;
+                    s.Rua = d.EnderecoCobranca.Rua;
+                    s.NumeroEndereco = d.EnderecoCobranca.Numero;
+                    s.CEP = d.EnderecoCobranca.CEP;
+                    s.Complemento = d.EnderecoCobranca.Complemento;
+                });
         }
     }
 }

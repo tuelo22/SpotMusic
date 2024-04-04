@@ -12,6 +12,7 @@ namespace SpotMusic.Domain.Streaming.Aggregates
         public virtual IList<Autor> Autores { get; set; } = [];
         public virtual IList<Interprete> Interpretes { get; set; } = [];
         public virtual IList<Playlist> Playlists { get; set; } = [];
+        public virtual IList<Album> Albuns { get; set; } = [];
 
         public void AdicionarAutor(Autor autor) => this.Autores.Add(autor);
 

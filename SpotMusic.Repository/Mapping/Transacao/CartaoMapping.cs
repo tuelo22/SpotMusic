@@ -16,6 +16,7 @@ namespace SpotMusic.Repository.Mapping.Transacao
             builder.Property(x => x.Id).ValueGeneratedOnAdd();
             builder.Property(x => x.Status).IsRequired();
             builder.Property(x => x.Numero).IsRequired().HasMaxLength(100);
+            builder.Property(x => x.CVV).IsRequired().HasMaxLength(3);
 
             builder.OwnsOne(d => d.Limite, c =>
             {
@@ -29,6 +30,7 @@ namespace SpotMusic.Repository.Mapping.Transacao
                 c.Property(x => x.Rua).HasColumnName("Rua").IsRequired().HasMaxLength(50);
                 c.Property(x => x.Numero).HasColumnName("Numero").IsRequired().HasMaxLength(50);
                 c.Property(x => x.Complemento).HasColumnName("Complemento").IsRequired().HasMaxLength(500);
+                c.Property(x => x.CEP).HasColumnName("CEP").IsRequired().HasMaxLength(50);
             });
 
             builder.HasMany(x => x.Transacoes).WithOne();

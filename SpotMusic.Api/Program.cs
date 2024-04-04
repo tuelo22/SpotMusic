@@ -32,6 +32,18 @@ builder.Services.AddScoped<AlbumRepository>();
 builder.Services.AddScoped<UsuarioService>();
 builder.Services.AddScoped<AutorService>();
 builder.Services.AddScoped<AlbumService>();
+builder.Services.AddScoped<CartaoService>();
+
+builder.Services.AddCors(c =>
+{
+    c.AddDefaultPolicy(builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+
+    });
+});
 
 var app = builder.Build();
 
@@ -40,6 +52,8 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+
+
 }
 
 app.UseHttpsRedirection();

@@ -15,7 +15,8 @@ namespace SpotMusic.Tests.TransacaoTest
                 Status = TipoStatus.Ativo,
                 Limite = 10000M,
                 Numero = "54654654564654",
-                EnderecoCobranca = Endereco.Criar("Rio de Janeiro", "Rio de Janeiro", "Rua dos bobos", "0", null)
+                CVV = "123",
+                EnderecoCobranca = Endereco.Criar("Rio de Janeiro", "Rio de Janeiro", "23432543", "Rua dos bobos", "0", null)
             };
 
             var merchant = Merchant.Criar("Oi oi oi");
@@ -33,7 +34,8 @@ namespace SpotMusic.Tests.TransacaoTest
                 Status = TipoStatus.Inativo,
                 Limite = 10000M,
                 Numero = "54654654564654",
-                EnderecoCobranca = Endereco.Criar("Rio de Janeiro", "Rio de Janeiro", "Rua dos bobos", "0", null)
+                CVV = "123",
+                EnderecoCobranca = Endereco.Criar("Rio de Janeiro", "Rio de Janeiro", "23432543", "Rua dos bobos", "0", null)
             };
 
             var merchant = Merchant.Criar("Oi oi oi");

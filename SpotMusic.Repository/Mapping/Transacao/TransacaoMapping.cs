@@ -13,7 +13,7 @@ namespace SpotMusic.Repository.Mapping.Transacao
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).ValueGeneratedOnAdd();
             builder.Property(x => x.Data).IsRequired();
-            builder.Property(x => x.Descricao).IsRequired().HasMaxLength(50);
+            builder.Property(x => x.Descricao).IsRequired().HasMaxLength(100);
             
             builder.OwnsOne(d => d.Valor, c =>
             {

@@ -12,8 +12,8 @@ using SpotMusic.Repository;
 namespace SpotMusic.Repository.Migrations
 {
     [DbContext(typeof(SpotMusicContext))]
-    [Migration("20240318004247_atualizacoes")]
-    partial class atualizacoes
+    [Migration("20240404031011_Inicial")]
+    partial class Inicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,6 +27,16 @@ namespace SpotMusic.Repository.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("MusicaAlbum", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MusicaAlbum", (string)null);
+                });
 
             modelBuilder.Entity("MusicaAutor", b =>
                 {
@@ -158,12 +168,20 @@ namespace SpotMusic.Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("AutorPrincipalId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Capa")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AutorPrincipalId");
 
                     b.ToTable("Albuns");
                 });
@@ -235,9 +253,6 @@ namespace SpotMusic.Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("AlbumId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid>("EstiloMusicalId")
                         .HasColumnType("uniqueidentifier");
 
@@ -252,8 +267,6 @@ namespace SpotMusic.Repository.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AlbumId");
 
                     b.HasIndex("EstiloMusicalId");
 
@@ -320,6 +333,11 @@ namespace SpotMusic.Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("CVV")
+                        .IsRequired()
+                        .HasMaxLength(3)
+                        .HasColumnType("nvarchar(3)");
+
                     b.Property<string>("Numero")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -364,6 +382,21 @@ namespace SpotMusic.Repository.Migrations
                     b.HasIndex("CartaoId");
 
                     b.ToTable("Transacao", (string)null);
+                });
+
+            modelBuilder.Entity("MusicaAlbum", b =>
+                {
+                    b.HasOne("SpotMusic.Domain.Streaming.Aggregates.Album", null)
+                        .WithMany()
+                        .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SpotMusic.Domain.Streaming.Aggregates.Musica", null)
+                        .WithMany()
+                        .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("MusicaAutor", b =>
@@ -453,6 +486,17 @@ namespace SpotMusic.Repository.Migrations
                     b.Navigation("Remetente");
                 });
 
+            modelBuilder.Entity("SpotMusic.Domain.Streaming.Aggregates.Album", b =>
+                {
+                    b.HasOne("SpotMusic.Domain.Streaming.Aggregates.Autor", "AutorPrincipal")
+                        .WithMany()
+                        .HasForeignKey("AutorPrincipalId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AutorPrincipal");
+                });
+
             modelBuilder.Entity("SpotMusic.Domain.Streaming.Aggregates.Interprete", b =>
                 {
                     b.HasOne("SpotMusic.Domain.Streaming.Aggregates.Musica", null)
@@ -463,11 +507,6 @@ namespace SpotMusic.Repository.Migrations
 
             modelBuilder.Entity("SpotMusic.Domain.Streaming.Aggregates.Musica", b =>
                 {
-                    b.HasOne("SpotMusic.Domain.Streaming.Aggregates.Album", null)
-                        .WithMany("Musicas")
-                        .HasForeignKey("AlbumId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("SpotMusic.Domain.Streaming.Aggregates.EstiloMusical", "EstiloMusical")
                         .WithMany()
                         .HasForeignKey("EstiloMusicalId")
@@ -583,6 +622,12 @@ namespace SpotMusic.Repository.Migrations
                             b1.Property<Guid>("CartaoId")
                                 .HasColumnType("uniqueidentifier");
 
+                            b1.Property<string>("CEP")
+                                .IsRequired()
+                                .HasMaxLength(50)
+                                .HasColumnType("nvarchar(50)")
+                                .HasColumnName("CEP");
+
                             b1.Property<string>("Cidade")
                                 .IsRequired()
                                 .HasMaxLength(50)
@@ -685,11 +730,6 @@ namespace SpotMusic.Repository.Migrations
                     b.Navigation("Notificacoes");
 
                     b.Navigation("Playlists");
-                });
-
-            modelBuilder.Entity("SpotMusic.Domain.Streaming.Aggregates.Album", b =>
-                {
-                    b.Navigation("Musicas");
                 });
 
             modelBuilder.Entity("SpotMusic.Domain.Streaming.Aggregates.Musica", b =>

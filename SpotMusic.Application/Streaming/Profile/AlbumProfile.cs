@@ -17,8 +17,10 @@ namespace SpotMusic.Application.Streaming.Profile
                 .ReverseMap();
 
             CreateMap<AlbumDto, Album>()
-                .ForMember(d => d.AutorPrincipal.Id, x => x.MapFrom(x => x.IdAutorPrincipal))
-                .ReverseMap();
+                .AfterMap((s, d) =>
+                {
+                    s.IdAutorPrincipal = d.AutorPrincipal.Id;
+                });
         }
     }
 }

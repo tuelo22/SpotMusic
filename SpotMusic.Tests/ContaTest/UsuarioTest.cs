@@ -26,8 +26,8 @@ namespace SpotMusic.Tests.ContaTest
             String Rua = "Rua dos bobos";
             String Numero = "0";
             String Complemento = "Tão tão distante";
-
-            var endereco = Endereco.Criar(Estado, Cidade, Rua, Numero, Complemento);
+            String CEP = "991902196";
+            var endereco = Endereco.Criar(Estado, Cidade, Rua, Numero, CEP, Complemento);
 
             Cartao cartao = new()
             {
@@ -35,7 +35,8 @@ namespace SpotMusic.Tests.ContaTest
                 Status = TipoStatus.Ativo,
                 Limite = 1000M,
                 Numero = "6465465466",
-                EnderecoCobranca = endereco
+                EnderecoCobranca = endereco,
+                CVV = "123"
             };
 
             string nome = "Dummy Usuario";
@@ -85,8 +86,8 @@ namespace SpotMusic.Tests.ContaTest
             String Numero = "0";
             String Complemento = "Tão tão distante";
             String telefone = "991902196";
-
-            var endereco = Endereco.Criar(Estado, Cidade, Rua, Numero, Complemento);
+            String CEP = "991902196";
+            var endereco = Endereco.Criar(Estado, Cidade, Rua, Numero, CEP, Complemento);
 
             Cartao cartao = new()
             {
@@ -94,7 +95,8 @@ namespace SpotMusic.Tests.ContaTest
                 Status = TipoStatus.Ativo,
                 Limite = 10M,
                 Numero = "6465465466",
-                EnderecoCobranca = endereco
+                EnderecoCobranca = endereco,
+                CVV = "123"
             };
 
             string nome = "Dummy Usuario";

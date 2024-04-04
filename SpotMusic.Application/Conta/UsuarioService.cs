@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using SpotMusic.Application.Conta.Dto;
 using SpotMusic.Application.Conta.Request;
 using SpotMusic.Domain.Conta.Aggregates;
 using SpotMusic.Domain.Streaming.Aggregates;
@@ -13,11 +14,14 @@ namespace SpotMusic.Application.Conta
         private UsuarioRepository UsuarioRepository;
         private PlanoRepository PlanoRepository;
 
-        public UsuarioService(IMapper mapper, UsuarioRepository usuarioRepository, PlanoRepository planoRepository)
+        private CartaoService CartaoService;
+
+        public UsuarioService(IMapper mapper, UsuarioRepository usuarioRepository, PlanoRepository planoRepository, CartaoService cartaoService)
         {
             Mapper = mapper;
             UsuarioRepository = usuarioRepository;
             PlanoRepository = planoRepository;
+            CartaoService = cartaoService;
         }
 
         public UsuarioDto Criar(UsuarioDto dto)
@@ -36,7 +40,7 @@ namespace SpotMusic.Application.Conta
 
             Usuario usuario = new();
 
-            Cartao cartao = this.Mapper.Map<Cartao>(dto.Cartao);
+            Cartao cartao = CartaoService.ConsultarCartaoAtivo(dto.Cartao);
 
             usuario.CriarConta(dto.Nome, dto.Email, dto.Senha, dto.Telefone,dto.DataNascimento, plano, cartao);
 
@@ -55,6 +59,25 @@ namespace SpotMusic.Application.Conta
                 return null;
 
             return this.Mapper.Map<UsuarioDto>(usuario);
+        }
+
+        public UsuarioDto? Autenticar(string email, string senha)
+        {
+            var SenhaCriptografada = Usuario.CriptografarSenha(senha);
+
+            var usuario = this.UsuarioRepository.Find(x => x.Email == email && x.Senha == SenhaCriptografada).FirstOrDefault();
+
+            if (usuario == null)
+                return null;
+
+            return this.Mapper.Map<UsuarioDto>(usuario);
+        }
+
+        public List<PlanoDto> ObterPlanos()
+        {
+            var plano = this.PlanoRepository.GetAll().ToList();
+
+            return this.Mapper.Map<List<PlanoDto>>(plano);
         }
     }
 }

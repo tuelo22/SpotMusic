@@ -1,14 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore;
-using SpotMusic.Domain.Streaming.Aggregates;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SpotMusic.Domain.Streaming.ValueObject;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SpotMusic.Domain.Core.ValueObject;
+using SpotMusic.Domain.Streaming.Aggregates;
+using SpotMusic.Domain.Streaming.ValueObject;
 
 namespace SpotMusic.Repository.Mapping.Streaming
 {

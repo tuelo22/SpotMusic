@@ -6,29 +6,19 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SpotMusic.Repository.Migrations
 {
     /// <inheritdoc />
-    public partial class InicialDataBase : Migration
+    public partial class Inicial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Albuns",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Nome = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Albuns", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Autor",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Nome = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                    Nome = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Descricao = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
+                    Backdrop = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -81,6 +71,26 @@ namespace SpotMusic.Repository.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Albuns",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Nome = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Capa = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AutorPrincipalId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Albuns", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Albuns_Autor_AutorPrincipalId",
+                        column: x => x.AutorPrincipalId,
+                        principalTable: "Autor",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Musica",
                 columns: table => new
                 {
@@ -88,18 +98,11 @@ namespace SpotMusic.Repository.Migrations
                     Nome = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Duracao_Valor = table.Column<int>(type: "int", maxLength: 50, nullable: false),
                     Letra = table.Column<string>(type: "nvarchar(1080)", maxLength: 1080, nullable: false),
-                    EstiloMusicalId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    AlbumId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    EstiloMusicalId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Musica", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Musica_Albuns_AlbumId",
-                        column: x => x.AlbumId,
-                        principalTable: "Albuns",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Musica_EstiloMusical_EstiloMusicalId",
                         column: x => x.EstiloMusicalId,
@@ -142,11 +145,13 @@ namespace SpotMusic.Repository.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
                     Limite = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    CVV = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: false),
                     Cartao_Numero = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Estado = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Cidade = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Rua = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Numero = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    CEP = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Complemento = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     UsuarioId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
@@ -230,6 +235,29 @@ namespace SpotMusic.Repository.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "MusicaAlbum",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MusicaAlbum", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_MusicaAlbum_Albuns_Id",
+                        column: x => x.Id,
+                        principalTable: "Albuns",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_MusicaAlbum_Musica_Id",
+                        column: x => x.Id,
+                        principalTable: "Musica",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "MusicaAutor",
                 columns: table => new
                 {
@@ -259,7 +287,6 @@ namespace SpotMusic.Repository.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Data = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Hora = table.Column<TimeSpan>(type: "time", nullable: false),
                     ValorTransacao = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Descricao = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     MerchantNome = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -300,6 +327,11 @@ namespace SpotMusic.Repository.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Albuns_AutorPrincipalId",
+                table: "Albuns",
+                column: "AutorPrincipalId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Assinatura_PlanoId",
                 table: "Assinatura",
                 column: "PlanoId");
@@ -318,11 +350,6 @@ namespace SpotMusic.Repository.Migrations
                 name: "IX_Interprete_MusicaId",
                 table: "Interprete",
                 column: "MusicaId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Musica_AlbumId",
-                table: "Musica",
-                column: "AlbumId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Musica_EstiloMusicalId",
@@ -370,6 +397,9 @@ namespace SpotMusic.Repository.Migrations
                 name: "Interprete");
 
             migrationBuilder.DropTable(
+                name: "MusicaAlbum");
+
+            migrationBuilder.DropTable(
                 name: "MusicaAutor");
 
             migrationBuilder.DropTable(
@@ -385,7 +415,7 @@ namespace SpotMusic.Repository.Migrations
                 name: "Plano");
 
             migrationBuilder.DropTable(
-                name: "Autor");
+                name: "Albuns");
 
             migrationBuilder.DropTable(
                 name: "Musica");
@@ -397,7 +427,7 @@ namespace SpotMusic.Repository.Migrations
                 name: "Cartao");
 
             migrationBuilder.DropTable(
-                name: "Albuns");
+                name: "Autor");
 
             migrationBuilder.DropTable(
                 name: "EstiloMusical");

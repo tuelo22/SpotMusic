@@ -59,7 +59,7 @@ namespace SpotMusic.Domain.Conta.Aggregates
             cartao.CriarTransacao(
                 Merchant.Criar(plano.Nome),
                 new Monetario(plano.Valor),
-                plano.Descricao);
+                plano.Nome);
 
             DesativarAssinaturaAtiva();
 
@@ -79,7 +79,7 @@ namespace SpotMusic.Domain.Conta.Aggregates
             }
         }
 
-        private static String CriptografarSenha(string senhaAberta)
+        public static String CriptografarSenha(string senhaAberta)
         {
             //BCript
             SHA256 criptoProvider = SHA256.Create();

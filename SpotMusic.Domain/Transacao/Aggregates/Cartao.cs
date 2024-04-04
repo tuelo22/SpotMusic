@@ -12,6 +12,7 @@ namespace SpotMusic.Domain.Transacao.Aggregates
         public Guid Id { get; set; }
         public TipoStatus Status { get; set; }
         public required Monetario Limite { get; set; }
+        public required string CVV { get; set; }
         public required String Numero { get; set; }
         public virtual IList<Transacao> Transacoes { get; set; } = [];
         public required Endereco EnderecoCobranca { get; set; }

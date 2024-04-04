@@ -28,7 +28,20 @@ namespace SpotMusic.Repository.Mapping.Streaming
                     "MusicaAutor",
                     l => l.HasOne(typeof(Autor)).WithMany().HasForeignKey("AutorId").HasPrincipalKey(nameof(Autor.Id)),
                     r => r.HasOne(typeof(Musica)).WithMany().HasForeignKey("MusicaId").HasPrincipalKey(nameof(Musica.Id)),
-                    j => j.HasKey("MusicaId", "AutorId"));                   
+                    j => j.HasKey("MusicaId", "AutorId"));
+
+            builder
+            .HasMany(musica => musica.Albuns)
+            .WithMany(album => album.Musicas)
+            .UsingEntity<Dictionary<string, object>>(
+                "MusicaAlbum",
+                x => x.HasOne<Album>().WithMany().HasForeignKey(nameof(Album.Id)),
+                x => x.HasOne<Musica>().WithMany().HasForeignKey(nameof(Musica.Id)),
+                x =>
+                {
+                    x.ToTable("MusicaAlbum"); 
+                }
+            );
         }
     }
 }
