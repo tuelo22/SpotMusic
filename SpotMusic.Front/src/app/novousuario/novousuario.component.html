@@ -1,0 +1,161 @@
+<mat-card class="formulario">
+  <mat-card-header>
+    <mat-card-title><h1>Cadastro de usuário</h1></mat-card-title>
+  </mat-card-header>
+  <div class="form" style="margin-left: 15px;">
+    <mat-error *ngIf="errorMessage">{{errorMessage}}</mat-error>
+    <mat-form-field>
+      <mat-label>Nome do usuário</mat-label>
+      <input matInput
+        placeholder="Nome do usuário"
+        [formControl]="nome"
+        required>
+      <mat-error *ngIf="nome.invalid">Nome do usuário inválido</mat-error>
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+      <mat-label>Data de nascimento</mat-label>
+      <input matInput
+        type="date"
+        placeholder="Data de nascimento"
+        [formControl]="dataNascimento"
+        required>
+      <mat-error *ngIf="dataNascimento.invalid">Data de nascimento inválida</mat-error>
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+      <mat-label>Telefone</mat-label>
+      <input matInput
+        type="tel"
+        placeholder="(XX) X XXXX-XXXX"
+        mask="(00) 0 0000-0000"
+        [formControl]="telefone"
+        required>
+      <mat-error *ngIf="telefone.invalid">Telefone inválido</mat-error>
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input matInput
+        placeholder="Informe a email..."
+        [formControl]="email"
+        required>
+      <mat-error *ngIf="email.invalid">Email inválido</mat-error>
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+      <mat-label>Senha</mat-label>
+      <input matInput
+        type="password"
+        placeholder="Informe a senha..."
+        [formControl]="senha"
+        required>
+      <mat-error *ngIf="senha.invalid">Senha inválida</mat-error>
+    </mat-form-field>
+    <br />
+  </div>
+  <fieldset>
+    <legend>Selecione o plano:</legend>
+    <mat-selection-list #tiposDePlano [multiple]="false">
+      <mat-list-option *ngFor="let plano of Planos" [value]="plano.id">{{plano.nome}}
+        - {{plano.valor | currency:'BRL'}} </mat-list-option>
+    </mat-selection-list>
+    <mat-label *ngIf="Planos.length == 0">Planos não localizados</mat-label>
+  </fieldset>
+  <br />
+  <fieldset>
+    <legend>Dados de Cobrança</legend>
+    <mat-form-field>
+      <mat-label>Numero do cartão de crédito</mat-label>
+      <input matInput
+        type="text"
+        mask="0000-0000-0000-0000"
+        placeholder="1234 5678 9012 3456"
+        [formControl]="numeroCartao"
+        required>
+      <mat-error *ngIf="numeroCartao.invalid">Numero do cartão de crédito
+        obrigatório.</mat-error>
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+      <mat-label>CVV</mat-label>
+      <input matInput
+        type="text"
+        mask="000"
+        placeholder="999"
+        [formControl]="numeroCVV"
+        required>
+      <mat-error *ngIf="numeroCVV.invalid">CVV obrigatório.</mat-error>
+    </mat-form-field>
+    <br />
+  </fieldset>
+  <br />
+  <fieldset>
+    <legend>Endereço de Cobrança</legend>
+    <mat-form-field>
+      <mat-label>Estado</mat-label>
+      <input matInput
+        placeholder="Estado"
+        maxlength="32"
+        [formControl]="estado"
+        required>
+      <mat-error *ngIf="estado.invalid">Estado obrigatório.</mat-error>
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+      <mat-label>Cidade</mat-label>
+      <input matInput
+        placeholder="Cidade"
+        maxlength="32"
+        [formControl]="cidade"
+        required>
+      <mat-error *ngIf="cidade.invalid">Cidade obrigatório.</mat-error>
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+      <mat-label>Rua</mat-label>
+      <input matInput
+        placeholder="Rua"
+        maxlength="255"
+        [formControl]="rua"
+        required>
+      <mat-error *ngIf="rua.invalid">Rua obrigatório.</mat-error>
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+      <mat-label>Número</mat-label>
+      <input matInput
+        placeholder="Número"
+        maxlength="10"
+        [formControl]="numeroEndereco"
+        required>
+      <mat-error *ngIf="numeroEndereco.invalid">Número do endereço obrigatório.</mat-error>
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+      <mat-label>CEP</mat-label>
+      <input matInput
+        type="text"
+        placeholder="XXXXX-XXX"
+        mask="00000-000"
+        [formControl]="CEP"
+        required>
+      <mat-error *ngIf="CEP.invalid">CEP obrigatório.</mat-error>
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+      <mat-label>Complemento</mat-label>
+      <input matInput
+        placeholder="Complemento"
+        maxlength="255"
+        [formControl]="complemento"
+        required>
+    </mat-form-field>
+    <br />
+  </fieldset>
+  <mat-card-actions>
+    <button mat-raised-button color="accent" (click)="voltar();">Voltar</button>
+    <button mat-raised-button color="primary" (click)="cadastrar();">Salvar</button>
+  </mat-card-actions>
+</mat-card>
+<br>

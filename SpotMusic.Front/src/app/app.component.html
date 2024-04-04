@@ -1,0 +1,13 @@
+<p *ngIf="exibeTitulo">
+  <mat-toolbar color="primary">
+    <span>SpotMusic</span>
+    <span class="example-spacer"></span>
+    <button mat-icon-button class="example-icon" (click)="sair();"
+      aria-label="Sair">
+      <mat-icon>input</mat-icon>
+    </button>
+  </mat-toolbar>
+</p>
+<mat-grid-list cols="2">
+  <router-outlet></router-outlet>
+</mat-grid-list>

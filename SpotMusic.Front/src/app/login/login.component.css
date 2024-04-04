@@ -1,0 +1,24 @@
+button {
+  margin: 5px;
+}
+
+mat-form-field {
+  width: 450px;
+}
+
+.formulario {
+  height: auto;
+  width: 500px;
+  margin-top: 5%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1%;
+  padding-right: 1%;
+  color: aliceblue;
+}
+
+.form {
+  padding-left: 1%;
+  padding-right: 1%;
+  margin: 0 2% 0 2%;
+}
