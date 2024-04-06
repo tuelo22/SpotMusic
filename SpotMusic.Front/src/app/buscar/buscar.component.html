@@ -1,0 +1,36 @@
+<div class="content">
+  <mat-card class="formulario">
+    <mat-card-header>
+    </mat-card-header>
+    <mat-form-field>
+      <mat-label>Texto de busca</mat-label>
+      <input matInput
+        placeholder="Informe o texto de busca."
+        [formControl]="texto"
+        required>
+      <mat-error *ngIf="texto.invalid">Texto obrigatório</mat-error>
+    </mat-form-field>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="buscar();">Buscar</button>
+      <button mat-raised-button color="accent" (click)="Limpar();">Limpar</button>
+    </mat-card-actions>
+  </mat-card>
+  <br />
+  <mat-card class="formulario" *ngIf="musicas != null">
+    <mat-card-header>
+      <h3>Resultado</h3>
+    </mat-card-header>
+    <div>
+      <div>
+        @for (musica of musicas; track musica) {
+        <mat-checkbox value="{{musica.id}}" [checked]="musica.favorito"
+          (change)="onSelectionChange($event)">{{musica.nome}} - Estilo:
+          {{musica.nomeEstiloMusical}}</mat-checkbox>
+        <p>Autores: {{musica.autores}}</p>
+        <br />
+        }
+      </div>
+      <p *ngIf="musicas.length == 0"> A busca não retornou resultados.</p>
+    </div>
+  </mat-card>
+</div>

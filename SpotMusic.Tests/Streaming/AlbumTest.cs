@@ -16,7 +16,7 @@ namespace SpotMusic.Tests.Streaming
                 autor
             };
 
-            var musica = Musica.Criar(nome, 10, nome, estilo, autores);
+            var musica = Musica.Criar(nome, nome, estilo, autores);
 
             var musicas = new List<Musica>
             {
@@ -39,7 +39,7 @@ namespace SpotMusic.Tests.Streaming
                 autor
             };
 
-            var musica = Musica.Criar(nome, 10, nome, estilo, autores);
+            var musica = Musica.Criar(nome, nome, estilo, autores);
 
             var musicas = new List<Musica>
             {

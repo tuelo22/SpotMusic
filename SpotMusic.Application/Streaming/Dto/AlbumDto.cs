@@ -12,7 +12,7 @@ namespace SpotMusic.Application.Streaming.Dto
         public Guid IdAutorPrincipal { get; set; }
 
         [Required]
-        public List<MusicaDto> Musicas { get; set; }
+        public List<MusicaDto> Musicas { get; set; } = [];
     }
 
     public class MusicaDto
@@ -26,17 +26,11 @@ namespace SpotMusic.Application.Streaming.Dto
         public String Letra { get; set; }
         [Required]
         public Guid IdEstiloMusical { get; set; }
-        public String NomeEstiloMusical { get; set; }
-        [Required]
-        public List<AutorDto> Autores { get; set; }
-        [Required]
-        public List<InterpreteDto> Interpretes { get; set; }
-    }
+        
+        public Boolean favorito { get; set; }
 
-    public class InterpreteDto
-    {
-        public Guid Id { get; set; }
-        [Required]
-        public String Nome { get; set; }
+        public String NomeEstiloMusical { get; set; }
+
+        public String Autores { get; set; }
     }
 }

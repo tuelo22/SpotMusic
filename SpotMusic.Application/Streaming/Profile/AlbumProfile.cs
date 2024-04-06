@@ -3,23 +3,29 @@ using SpotMusic.Domain.Streaming.Aggregates;
 
 namespace SpotMusic.Application.Streaming.Profile
 {
-    internal class AlbumProfile : AutoMapper.Profile
+    public class AlbumProfile : AutoMapper.Profile
     {
         public AlbumProfile()
         {
-            CreateMap<Interprete, InterpreteDto>()
-                .ReverseMap();
-
             CreateMap<Musica, MusicaDto>()
-                .ForMember(d => d.IdEstiloMusical, x => x.MapFrom(x => x.EstiloMusical.Id))
-                .ForMember(d => d.NomeEstiloMusical, x => x.MapFrom(x => x.EstiloMusical.Nome))
-                .ForMember(d => d.Duracao, x => x.MapFrom(x => x.Duracao.Valor))
-                .ReverseMap();
-
-            CreateMap<AlbumDto, Album>()
                 .AfterMap((s, d) =>
                 {
-                    s.IdAutorPrincipal = d.AutorPrincipal.Id;
+                    d.IdEstiloMusical = s.EstiloMusical.Id;
+                    d.NomeEstiloMusical = s.EstiloMusical.Nome;
+                    d.Autores = String.Empty;
+
+                    foreach (var item in s.Autores)
+                    {
+                        var simbolo = s.Autores.IndexOf(item) == 0 ? String.Empty : "; ";
+
+                        d.Autores += simbolo + item.Nome.Trim(); 
+                    }
+                });
+
+            CreateMap<Album, AlbumDto>()
+                .AfterMap((s, d) =>
+                {
+                    d.IdAutorPrincipal = s.AutorPrincipal.Id;
                 });
         }
     }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SpotMusic.Repository;
 
@@ -11,9 +12,11 @@ using SpotMusic.Repository;
 namespace SpotMusic.Repository.Migrations
 {
     [DbContext(typeof(SpotMusicContext))]
-    partial class SpotMusicContextModelSnapshot : ModelSnapshot
+    [Migration("20240405201257_musica_interprete")]
+    partial class musica_interprete
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -530,6 +533,26 @@ namespace SpotMusic.Repository.Migrations
                         .WithMany()
                         .HasForeignKey("EstiloMusicalId")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.OwnsOne("SpotMusic.Domain.Streaming.ValueObject.Duracao", "Duracao", b1 =>
+                        {
+                            b1.Property<Guid>("MusicaId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<int>("Valor")
+                                .HasMaxLength(50)
+                                .HasColumnType("int");
+
+                            b1.HasKey("MusicaId");
+
+                            b1.ToTable("Musica");
+
+                            b1.WithOwner()
+                                .HasForeignKey("MusicaId");
+                        });
+
+                    b.Navigation("Duracao")
                         .IsRequired();
 
                     b.Navigation("EstiloMusical");

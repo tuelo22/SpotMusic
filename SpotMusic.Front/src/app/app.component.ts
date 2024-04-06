@@ -32,4 +32,16 @@ export class AppComponent implements OnInit {
     this.usuarioService.logout();
     this.router.navigate([""]);
   }
+
+  public home() {
+    this.router.navigate(["/home"]);
+  }
+
+  public favoritos() {
+    this.router.navigate(["/favoritos"]);
+  }
+
+  public buscar() {
+    this.router.navigate(["/buscar"]);
+  }
 }

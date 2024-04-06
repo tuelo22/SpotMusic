@@ -17,7 +17,7 @@ import { MatCardModule } from '@angular/material/card';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent implements OnInit{
+export class LoginComponent implements OnInit {
   email = new FormControl('', [Validators.required, Validators.email]);
   senha = new FormControl('', [Validators.required]);
   errorMessage = '';
@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit{
 
   constructor(private usuarioService: UsuarioService, private router: Router, private _snackBar: MatSnackBar) { }
   ngOnInit(): void {
-    if(this.usuarioService.IsLogado()){
+    if (this.usuarioService.IsLogado()) {
       this.router.navigate(["/home"]);
     }
   }
@@ -42,8 +42,7 @@ export class LoginComponent implements OnInit{
     this.usuarioService.autenticar(emailValue, senhaValue).subscribe(
       {
         next: (response) => {
-          this.usuario = response;
-          sessionStorage.setItem("user", JSON.stringify(this.usuario));
+          this.usuarioService.IniciaSessao(response);
           this.router.navigate(["/home"]);
         },
         error: (e) => {

@@ -1,0 +1,20 @@
+<div class="content">
+  <mat-card class="formulario">
+    <mat-card-header>
+      <h1>Favoritos</h1>
+    </mat-card-header>
+    <div *ngIf="musicas != null">
+      <div>
+        @for (musica of musicas; track musica) {
+        <mat-checkbox value="{{musica.id}}" [checked]="musica.favorito"
+          (change)="onSelectionChange($event)">{{musica.nome}} - Estilo:
+          {{musica.nomeEstiloMusical}}</mat-checkbox>
+        <p>Autores: {{musica.autores}}</p>
+        <br />
+        }
+      </div>
+    </div>
+    <h4 *ngIf="musicas == null || musicas.length == 0">Não há musicas
+      favotias.</h4>
+  </mat-card>
+</div>

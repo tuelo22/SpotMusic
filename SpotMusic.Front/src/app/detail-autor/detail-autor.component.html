@@ -1,0 +1,47 @@
+<div class="content" *ngIf="autor != undefined">
+    <mat-card class="formulario">
+        <mat-card-header>
+            <mat-card-title><h1>{{autor.nome}}</h1></mat-card-title>
+        </mat-card-header>
+        <img [src]="autor.backdrop">
+        <br />
+        <p>
+            <span>{{autor.descricao}}</span>
+        </p>
+        <br />
+        <mat-accordion *ngIf="albuns != undefined">
+            <mat-panel-description>
+                <h1>Albuns</h1>
+            </mat-panel-description>
+            <mat-expansion-panel hideToggle *ngFor="let album of albuns">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        {{album.nome}}
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <h3>Musicas</h3>
+                <div>
+                    <div>
+                        @for (musica of album.musicas; track musica) {
+                        <mat-checkbox value="{{musica.id}}"
+                            [checked]="musica.favorito"
+                            (change)="onSelectionChange($event)">{{musica.nome}}
+                            - Estilo:
+                            {{musica.nomeEstiloMusical}}</mat-checkbox>
+                        <p>Autores: {{musica.autores}}</p>
+                        <br />
+                        }
+                    </div>
+                    <p
+                        *ngIf="album.musicas == null || album.musicas.length == 0">
+                        O albúm não possui musicas.</p>
+                </div>
+
+            </mat-expansion-panel>
+        </mat-accordion>
+        <br />
+        <mat-card-actions>
+            <button mat-raised-button color="primary" (click)="voltar();">Voltar</button>
+        </mat-card-actions>
+    </mat-card>
+</div>

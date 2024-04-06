@@ -19,12 +19,9 @@ namespace SpotMusic.Tests.Streaming
                 autor
             };
 
-            Duracao duracao = 10; 
-
-            var musica = Musica.Criar(nome, duracao, nome, estilo, autores);
+            var musica = Musica.Criar(nome, nome, estilo, autores);
 
             Assert.Equal(musica.Nome, nome);
-            Assert.Equal(musica.Duracao.Valor, duracao.Valor);
             Assert.Equal(musica.Letra, nome);
             Assert.True(musica.Autores.Any());
         }
@@ -43,11 +40,9 @@ namespace SpotMusic.Tests.Streaming
                 autor
             };
 
-            Duracao duracao = 10;
-
             Assert.Throws<Exception>(() =>
             {
-                var musica = Musica.Criar(nome, duracao, nome, estilo, autores);
+                var musica = Musica.Criar(nome, nome, estilo, autores);
             });
         }
     }

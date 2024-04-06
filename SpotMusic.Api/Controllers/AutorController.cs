@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SpotMusic.Application.Conta.Dto;
 using SpotMusic.Application.Streaming;
 using SpotMusic.Application.Streaming.Dto;
 
@@ -18,6 +19,7 @@ namespace SpotMusic.Api.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(typeof(List<AutorDto>), 200)]
         public IActionResult GetAutores()
         {
             var result = AutorService.Obter();
@@ -26,6 +28,7 @@ namespace SpotMusic.Api.Controllers
         }
 
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(AutorDto), 200)]
         public IActionResult GetAutor(Guid id)
         {
             var result = AutorService.Obter(id);
@@ -49,21 +52,11 @@ namespace SpotMusic.Api.Controllers
             return Created($"/autor/{result.Id}", result);
         }
 
-        [HttpPost("{id}/albums")]
-        public IActionResult AssociarAlbum(AlbumDto dto)
+        [HttpGet("{IdUsuario}/albums/{idAutor}")]
+        [ProducesResponseType(typeof(List<AlbumDto>), 200)]
+        public IActionResult ObterAlbuns(Guid IdUsuario, Guid idAutor)
         {
-            if (ModelState is { IsValid: false })
-                return BadRequest();
-
-            var result = AlbumService.Criar(dto);
-
-            return Created($"/autor/{result.IdAutorPrincipal}/albums/{dto.Id}", result);
-        }
-
-        [HttpGet("{idAutor}/albums/{id}")]
-        public IActionResult AssociarAlbum(Guid idAutor, Guid id)
-        {
-            var result = AlbumService.Obter(idAutor, id);
+            var result = AlbumService.ObterPorAutor(idAutor, IdUsuario);
 
             if (result == null)
             {
@@ -72,6 +65,5 @@ namespace SpotMusic.Api.Controllers
 
             return Ok(result);
         }
-
     }
 }

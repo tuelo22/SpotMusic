@@ -4,6 +4,7 @@ mat-toolbar {
 
 .content {
   padding: 16px;
+  color: aliceblue;
 }
 
 .content>mat-card {
@@ -14,4 +15,8 @@ mat-toolbar {
 .column-label {
   margin-right: 8px;
   font-size: 1rem;
+}
+
+img {
+  padding: 2%;
 }

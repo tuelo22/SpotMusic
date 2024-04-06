@@ -37,7 +37,7 @@ namespace SpotMusic.Application.Streaming
 
         public IEnumerable<AutorDto> Obter()
         {
-            var result = _autorRepository.GetAll;
+            var result = _autorRepository.GetAll().ToList();
 
             return this.mapper.Map<List<AutorDto>>(result);
         }

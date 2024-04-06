@@ -6,6 +6,9 @@ import { Interprete } from '../model/Interprete';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from "@angular/flex-layout";
+import { Autor } from '../model/Autor';
+import { AutorService } from '../services/autor.service';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -15,13 +18,17 @@ import { FlexLayoutModule } from "@angular/flex-layout";
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit {
-  interpretes = null;
+  Autores: Autor[] = [];
 
-  constructor(private interpreteService: InterpreteService) {
-  }
+  constructor(private autorService: AutorService, private router: Router) { }
+
   ngOnInit(): void {
-    this.interpreteService.getInterprete().subscribe(response => {
-      this.interpretes = response as any;
+    this.autorService.getAutores().subscribe(response => {
+      this.Autores = response;
     });
+  }
+
+  public goToDetail(item: Autor) {
+    this.router.navigate(["detail", item.id]);
   }
 }

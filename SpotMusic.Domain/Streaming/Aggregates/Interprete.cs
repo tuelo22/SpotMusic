@@ -4,6 +4,7 @@
     {
         public Guid Id { get; set; }
         public required String Nome { get; set; }
+        public virtual IList<Musica> Musicas { get; set; } = [];
 
         public static Interprete Criar(String Nome)
         {

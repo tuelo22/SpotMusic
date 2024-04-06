@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SpotMusic.Repository;
 
@@ -11,9 +12,11 @@ using SpotMusic.Repository;
 namespace SpotMusic.Repository.Migrations
 {
     [DbContext(typeof(SpotMusicContext))]
-    partial class SpotMusicContextModelSnapshot : ModelSnapshot
+    [Migration("20240406041213_removendo_duracao")]
+    partial class removendo_duracao
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

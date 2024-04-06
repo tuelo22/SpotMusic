@@ -5,9 +5,8 @@ namespace SpotMusic.Domain.Streaming.Aggregates
     public class Musica
     {
         public Guid Id { get; set; }
-        public required string Nome { get; set; }
-        public required Duracao Duracao { get; set; }
-        public required String Letra { get; set; }
+        public string Nome { get; set; }
+        public String Letra { get; set; }
         public virtual EstiloMusical EstiloMusical { get; set; }
         public virtual IList<Autor> Autores { get; set; } = [];
         public virtual IList<Interprete> Interpretes { get; set; } = [];
@@ -18,7 +17,11 @@ namespace SpotMusic.Domain.Streaming.Aggregates
 
         public void AdicionarInterprete(Interprete interprete) => this.Interpretes.Add(interprete);
 
-        public static Musica Criar(String nome, Duracao duracao,
+        public void AdicionarPlayList(Playlist playlist) => this.Playlists.Add(playlist);
+
+        public void RemoverPlayList(Playlist playlist) => this.Playlists.Remove(playlist);
+
+        public static Musica Criar(String nome,
             String letra, EstiloMusical estilo, List<Autor> autores)
         {
             if (String.IsNullOrEmpty(nome)) throw new Exception("E obrigatorio informar o nome da musica");
@@ -27,7 +30,6 @@ namespace SpotMusic.Domain.Streaming.Aggregates
             var musica = new Musica()
             {
                 Nome = nome,
-                Duracao = duracao,
                 Letra = letra,
                 EstiloMusical = estilo,
             };

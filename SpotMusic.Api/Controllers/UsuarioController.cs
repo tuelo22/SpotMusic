@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SpotMusic.Api.Controllers.Request;
 using SpotMusic.Application.Conta;
+using SpotMusic.Application.Conta.Dto;
 using SpotMusic.Application.Conta.Request;
 
 namespace SpotMusic.Api.Controllers
@@ -54,6 +55,7 @@ namespace SpotMusic.Api.Controllers
         }
 
         [HttpGet("ObterPlanos")]
+        [ProducesResponseType(typeof(List<PlanoDto>), 200)]
         public IActionResult ObterPlanos()
         {
             var result = this._usuarioService.ObterPlanos();

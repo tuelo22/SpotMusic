@@ -18,6 +18,10 @@ export class UsuarioService {
     });
   }
 
+  public IniciaSessao(Usuario: Usuario) {
+    sessionStorage.setItem('user', JSON.stringify(Usuario));
+  }
+
   public Cadastrar(usuario: Usuario): Observable<Usuario> {
     return this.http.post<Usuario>(`${urlback}/api/Usuario`, usuario);
   }
@@ -29,5 +33,15 @@ export class UsuarioService {
 
   public logout() {
     sessionStorage.removeItem('user');
+  }
+
+  public GetIdUsuario(): String | null {
+    var user = sessionStorage.getItem('user');
+    if (user != null) {
+      const usuario: Usuario = JSON.parse(user);
+
+      return usuario.id as string;
+    }
+    return null;
   }
 }
