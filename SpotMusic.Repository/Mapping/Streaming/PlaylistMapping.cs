@@ -17,16 +17,6 @@ namespace SpotMusic.Repository.Mapping.Streaming
             builder.Property(x => x.Publica).IsRequired();
             builder.Property(x => x.DataCriacao).IsRequired();
             builder.Property(x => x.TipoPlayList);
-
-            //builder
-            //    .HasMany(x => x.Musicas)
-            //    .WithMany(y => y.Playlists)
-            //    .UsingEntity(
-            //        "PlaylistMusica",
-            //        r => r.HasOne(typeof(Playlist)).WithMany().HasForeignKey("PlaylistId").HasPrincipalKey(nameof(Playlist.Id)),
-            //        l => l.HasOne(typeof(Musica)).WithMany().HasForeignKey("MusicaId").HasPrincipalKey(nameof(Musica.Id)),
-
-            //        j => j.HasKey("PlaylistId", "MusicaId"));
         }
     }
 }
