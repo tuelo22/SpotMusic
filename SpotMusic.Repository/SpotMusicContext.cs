@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using SpotMusic.Domain.Admin.Aggregates;
 using SpotMusic.Domain.Conta.Aggregates;
 using SpotMusic.Domain.Notificacao.Aggregates;
 using SpotMusic.Domain.Streaming.Aggregates;
