@@ -1,14 +1,9 @@
-﻿using SpotMusic.Domain.Conta.Aggregates;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SpotMusic.Domain.Admin.Aggregates;
 
 namespace SpotMusic.Repository.Repository.Admin
 {
-    public class UsuarioAdminRepository : RepositoryBase<Usuario>
+    public class UsuarioAdminRepository : RepositoryBase<UsuarioAdmin>
     {
-        public UsuarioAdminRepository(SpotMusicContext context) : base(context) { }
+        public UsuarioAdminRepository(SpotMusicAdminContext context) : base(context) { }
     }
 }

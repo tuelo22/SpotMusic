@@ -1,12 +1,13 @@
-﻿using System.Linq.Expressions;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace SpotMusic.Repository
 {
     public abstract class RepositoryBase<T> where T : class, new()
     {
-        protected SpotMusicContext Context { get; set; }
+        protected DbContext Context { get; set; }
 
-        public RepositoryBase(SpotMusicContext context)
+        public RepositoryBase(DbContext context)
         {
             Context = context;
         }

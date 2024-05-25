@@ -2,6 +2,7 @@
 using SpotMusic.Application.Conta.Dto;
 using SpotMusic.Application.Conta.Request;
 using SpotMusic.Domain.Conta.Aggregates;
+using SpotMusic.Domain.Extensions;
 using SpotMusic.Domain.Streaming.Aggregates;
 using SpotMusic.Domain.Transacao.Aggregates;
 using SpotMusic.Repository.Repository;
@@ -63,7 +64,7 @@ namespace SpotMusic.Application.Conta
 
         public UsuarioDto? Autenticar(string email, string senha)
         {
-            var SenhaCriptografada = Usuario.CriptografarSenha(senha);
+            var SenhaCriptografada = senha.Criptografar();
 
             var usuario = this.UsuarioRepository.Find(x => x.Email == email && x.Senha == SenhaCriptografada).FirstOrDefault();
 

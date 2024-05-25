@@ -1,5 +1,9 @@
 using Microsoft.EntityFrameworkCore;
+using SpotMusic.Application.Admin;
+using SpotMusic.Application.Admin.Profile;
 using SpotMusic.Repository;
+using SpotMusic.Repository.Repository;
+using SpotMusic.Repository.Repository.Admin;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +14,11 @@ builder.Services.AddDbContext<SpotMusicAdminContext>(c =>
     c.UseLazyLoadingProxies()
      .UseSqlServer(builder.Configuration.GetConnectionString("SpotMusicAdminConnection"));
 });
+
+builder.Services.AddAutoMapper(typeof(UsuarioAdminProfile).Assembly);
+
+builder.Services.AddScoped<UsuarioAdminService>();
+builder.Services.AddScoped<UsuarioAdminRepository>();
 
 var app = builder.Build();
 

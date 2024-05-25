@@ -1,5 +1,6 @@
 ﻿using SpotMusic.Domain.Core.Enum;
 using SpotMusic.Domain.Core.ValueObject;
+using SpotMusic.Domain.Extensions;
 using SpotMusic.Domain.Streaming.Aggregates;
 using SpotMusic.Domain.Streaming.Enum;
 using SpotMusic.Domain.Transacao.Aggregates;
@@ -27,7 +28,7 @@ namespace SpotMusic.Domain.Conta.Aggregates
         {
             this.Nome = nome;
             this.Email = email;
-            this.Senha = CriptografarSenha(senha);
+            this.Senha = senha.Criptografar();
             this.DataNascimento = dataNascimento;
             this.Telefone = Telefone;
             this.AssinarPlano(plano, cartao);
@@ -77,18 +78,6 @@ namespace SpotMusic.Domain.Conta.Aggregates
 
                 assinatura?.Inativar();
             }
-        }
-
-        public static String CriptografarSenha(string senhaAberta)
-        {
-            //BCript
-            SHA256 criptoProvider = SHA256.Create();
-
-            byte[] texto = Encoding.UTF8.GetBytes(senhaAberta);
-
-            var criptoResult = criptoProvider.ComputeHash(texto);
-
-            return Convert.ToHexString(criptoResult);
         }
     }
 }
