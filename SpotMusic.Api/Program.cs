@@ -26,7 +26,7 @@ builder.Services.AddAutoMapper(typeof(UsuarioProfile).Assembly);
 builder.Services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
     .AddIdentityServerAuthentication(options =>
     {
-        options.Authority = "";
+        options.Authority = "https://localhost:7184";
         options.ApiName = "SpotMusic";
         options.ApiSecret = "SpotMusic";
         options.RequireHttpsMetadata = true;
@@ -35,7 +35,7 @@ builder.Services.AddAuthorization(optons =>
 {
     optons.AddPolicy("SpotMusic-role-user", p =>
     {
-        p.RequireClaim("");
+        p.RequireClaim("role", "SpotMusicScope");
 
     });
 });
@@ -73,8 +73,6 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-
-
 }
 
 app.UseHttpsRedirection();

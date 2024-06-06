@@ -4,7 +4,7 @@ using SpotMusic.STS.Data;
 
 namespace SpotMusic.STS.GrantType
 {
-    public class ResourceOwnerPasswrodValidator(IdentityRepository repository) : IResourceOwnerPasswordValidator
+    public class ResourceOwnerPasswordValidator(IIdentityRepository repository) : IResourceOwnerPasswordValidator
     {
         public async Task ValidateAsync(ResourceOwnerPasswordValidationContext context)
         {
