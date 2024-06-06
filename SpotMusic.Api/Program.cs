@@ -1,3 +1,5 @@
+using IdentityModel;
+using IdentityServer4.AccessTokenValidation;
 using Microsoft.EntityFrameworkCore;
 using SpotMusic.Application.Conta;
 using SpotMusic.Application.Conta.Profile;
@@ -20,6 +22,23 @@ builder.Services.AddDbContext<SpotMusicContext>(c =>
 });
 
 builder.Services.AddAutoMapper(typeof(UsuarioProfile).Assembly);
+
+builder.Services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
+    .AddIdentityServerAuthentication(options =>
+    {
+        options.Authority = "";
+        options.ApiName = "SpotMusic";
+        options.ApiSecret = "SpotMusic";
+        options.RequireHttpsMetadata = true;
+    });
+builder.Services.AddAuthorization(optons =>
+{
+    optons.AddPolicy("SpotMusic-role-user", p =>
+    {
+        p.RequireClaim("");
+
+    });
+});
 
 // Repository
 builder.Services.AddScoped<UsuarioRepository>();
@@ -60,6 +79,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

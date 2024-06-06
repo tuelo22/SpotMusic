@@ -1,0 +1,6 @@
+@SpotMusic.STS_HostAddress = http://localhost:5055
+
+GET {{SpotMusic.STS_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
