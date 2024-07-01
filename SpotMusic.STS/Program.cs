@@ -1,3 +1,5 @@
+using IdentityServer4.Models;
+using Microsoft.Extensions.DependencyInjection;
 using SpotMusic.STS;
 using SpotMusic.STS.Data;
 using SpotMusic.STS.GrantType;
@@ -12,13 +14,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.Configure<DataBaseOption>(builder.Configuration.GetSection("SpotMusicConnection"));
+builder.Services.Configure<DataBaseOption>(builder.Configuration.GetSection("ConnectionStrings"));
 builder.Services.AddScoped<IIdentityRepository, IdentityRepository>();
 
 builder.Services.AddIdentityServer()
                 .AddDeveloperSigningCredential()
-                .AddInMemoryApiResources(IdentityServerConfiguration.GetApiResource())
                 .AddInMemoryIdentityResources(IdentityServerConfiguration.GetIdentityResource())
+                .AddInMemoryApiResources(IdentityServerConfiguration.GetApiResource())
                 .AddInMemoryApiScopes(IdentityServerConfiguration.GetApiScopes())
                 .AddInMemoryClients(IdentityServerConfiguration.GetClients())
                 .AddProfileService<ProfileService>()
@@ -36,6 +38,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseIdentityServer();
+
 app.UseAuthentication();
 app.UseAuthorization();
 

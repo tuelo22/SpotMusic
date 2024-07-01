@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SpotMusic.Application.Streaming;
 using SpotMusic.Application.Streaming.Dto;
 
@@ -6,11 +7,12 @@ namespace SpotMusic.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class MusicaController : ControllerBase
     {
         private readonly MusicaService musicaService;
 
-        public MusicaController(MusicaService musicaService)
+        public MusicaController(MusicaService musicaService) 
         {
             this.musicaService = musicaService;
         }

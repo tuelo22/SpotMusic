@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using SpotMusic.Application.Admin;
 using SpotMusic.Application.Admin.Profile;
@@ -19,6 +20,9 @@ builder.Services.AddAutoMapper(typeof(UsuarioAdminProfile).Assembly);
 
 builder.Services.AddScoped<UsuarioAdminService>();
 builder.Services.AddScoped<UsuarioAdminRepository>();
+builder.Services.AddAuthentication(opt => {
+    opt.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+}).AddCookie();
 
 var app = builder.Build();
 
@@ -35,6 +39,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

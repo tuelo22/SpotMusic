@@ -1,6 +1,7 @@
 using IdentityModel;
 using IdentityServer4.AccessTokenValidation;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using SpotMusic.Application.Conta;
 using SpotMusic.Application.Conta.Profile;
 using SpotMusic.Application.Streaming;
@@ -14,7 +15,34 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+builder.Services.AddSwaggerGen(c =>
+{
+    c.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme()
+    {
+        In = Microsoft.OpenApi.Models.ParameterLocation.Header,
+        Name = "Authorization",
+        Type = Microsoft.OpenApi.Models.SecuritySchemeType.ApiKey,
+        Description = "Adicione o token JWT para fazer as requisições na APIs",
+        Scheme = "Bearer"
+    });
+
+    c.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement()
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            Array.Empty<string>()
+        }
+    });
+
+});
 builder.Services.AddDbContext<SpotMusicContext>(c =>
 {
     c.UseLazyLoadingProxies()
@@ -33,7 +61,7 @@ builder.Services.AddAuthentication(IdentityServerAuthenticationDefaults.Authenti
     });
 builder.Services.AddAuthorization(optons =>
 {
-    optons.AddPolicy("SpotMusic-role-user", p =>
+    optons.AddPolicy("SpotMusic", p =>
     {
         p.RequireClaim("role", "SpotMusicScope");
 
@@ -79,6 +107,7 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
 
 app.MapControllers();
 

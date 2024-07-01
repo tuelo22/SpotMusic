@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SpotMusic.Api.Controllers.Request;
 using SpotMusic.Application.Conta;
 using SpotMusic.Application.Conta.Dto;

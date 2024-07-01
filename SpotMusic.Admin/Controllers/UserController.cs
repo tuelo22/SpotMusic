@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SpotMusic.Application.Admin;
 using SpotMusic.Application.Admin.Dto;
 
 namespace SpotMusic.Admin.Controllers
 {
+    [Authorize]
     public class UserController(UsuarioAdminService usuarioAdminService) : Controller
     {
         public IActionResult Index()
@@ -13,11 +15,13 @@ namespace SpotMusic.Admin.Controllers
             return View(result);
         }
 
+        [AllowAnonymous]
         public IActionResult Criar() 
         {
             return View();
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public IActionResult Salvar(UsuarioAdminDto dt) 
         {

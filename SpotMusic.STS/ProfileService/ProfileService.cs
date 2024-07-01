@@ -26,6 +26,7 @@ namespace SpotMusic.STS.ProfileService
                 new Claim("iss", "SpotMusic.STS"),
                 new Claim("name", user.Nome),
                 new Claim("email", user.Email),
+                new Claim("id", user.Id.ToString()),
                 new Claim("role", "SpotMusicScope")
             };
 

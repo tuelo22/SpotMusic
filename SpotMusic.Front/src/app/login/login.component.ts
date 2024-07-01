@@ -36,8 +36,8 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    let emailValue = this.email.getRawValue() as String;
-    let senhaValue = this.senha.getRawValue() as String;
+    let emailValue = this.email.getRawValue() as string;
+    let senhaValue = this.senha.getRawValue() as string;
 
     this.usuarioService.autenticar(emailValue, senhaValue).subscribe(
       {
