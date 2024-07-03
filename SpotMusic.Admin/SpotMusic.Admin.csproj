@@ -22,4 +22,8 @@
     <ProjectReference Include="..\SpotMusic.Repository\SpotMusic.Repository.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Musica\" />
+  </ItemGroup>
+
 </Project>

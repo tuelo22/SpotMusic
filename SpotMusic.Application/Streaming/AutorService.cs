@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
+using SpotMusic.Application.Admin.Dto;
 using SpotMusic.Application.Streaming.Dto;
+using SpotMusic.Domain.Admin.Aggregates;
 using SpotMusic.Domain.Streaming.Aggregates;
 using SpotMusic.Domain.Streaming.ValueObject;
 using SpotMusic.Repository.Repository;
+using SpotMusic.Repository.Repository.Admin;
 
 namespace SpotMusic.Application.Streaming
 {
@@ -40,6 +43,13 @@ namespace SpotMusic.Application.Streaming
             var result = _autorRepository.GetAll().ToList();
 
             return this.mapper.Map<List<AutorDto>>(result);
+        }
+
+        public void Salvar(AutorDto dto)
+        {
+            var autor = mapper.Map<Autor>(dto);
+
+            _autorRepository.Save(autor);
         }
     }
 }
