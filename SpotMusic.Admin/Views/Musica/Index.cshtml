@@ -1,0 +1,30 @@
+﻿@model IEnumerable<SpotMusic.Application.Streaming.Dto.MusicaDto>
+
+<div>
+    <a type="button" role="button" class="btn btn-primary" href="/Autor/Criar">Cadastrar autor</a>
+</div>
+
+<div>
+    <table class="table table-striped-columns">
+        <thead>
+            <tr>
+                <td>ID</td>
+                <td>Nome</td>
+                <td>Descrição</td>
+                <td>Imagem</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Nome</td>
+                    <td>@item.Letra</td>
+                    <td>@item.Autores</td>
+                    <td></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
