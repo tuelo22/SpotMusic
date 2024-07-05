@@ -1,5 +1,9 @@
 ﻿@model IEnumerable<SpotMusic.Application.Streaming.Dto.AutorDto>
 
+<div class="text-center">
+    <h1 class="display-4">Autores</h1>
+</div>
+
 <div>
     <a type="button" role="button" class="btn btn-primary" href="/Autor/Criar">Cadastrar autor</a>
 </div>
@@ -12,6 +16,7 @@
                 <td>Nome</td>
                 <td>Descrição</td>
                 <td>Imagem</td>
+                <td>Musicas</td>
             </tr>
         </thead>
         <tbody>
@@ -22,7 +27,7 @@
                     <td>@item.Nome</td>
                     <td>@item.Descricao</td>
                     <td><img src="@(item.Backdrop)" width="200" height="200" />  </td>
-                    <td></td>
+                    <td><a type="button" role="button" class="btn btn-primary" href="/Musica/Index?IdAutor=@item.Id">Musicas</a></td>
                 </tr>
             }
         </tbody>

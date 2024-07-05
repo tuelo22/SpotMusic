@@ -1,12 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using SpotMusic.Application.Streaming;
 
 namespace SpotMusic.Admin.Controllers
 {
-    public class MusicaController : Controller
+    [Authorize]
+    public class MusicaController(MusicaService musicaService) : Controller
     {
-        public IActionResult Index()
+        public IActionResult Index(Guid IdAutor)
         {
-            return View();
+            var result = musicaService.ObterMusicas(IdAutor);
+
+            return View(result);
         }
     }
 }

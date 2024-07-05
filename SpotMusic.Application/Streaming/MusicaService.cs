@@ -92,5 +92,14 @@ namespace SpotMusic.Application.Streaming
 
             return musicas;
         }
+
+        public List<MusicaDto> ObterMusicas(Guid IdAutor)
+        {
+            var musicas = musicaRepository.Find(x => x.Autores.Any(x => x.Id == IdAutor)).ToList();
+
+            var musicasDto = this.mapper.Map<List<MusicaDto>>(musicas);
+
+            return musicasDto ?? [];
+        }
     }
 }
