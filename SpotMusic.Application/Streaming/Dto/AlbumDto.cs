@@ -1,36 +1,25 @@
-﻿using SpotMusic.Domain.Streaming.ValueObject;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace SpotMusic.Application.Streaming.Dto
 {
     public class AlbumDto
     {
         public Guid Id { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Campo nome é obrigatório.")]
         public String Nome { get; set; }
+
+        [Required(ErrorMessage = "Campo capa é obrigatório.")]
         public String Capa { get; set; }
+
+        [Required(ErrorMessage = "Campo autor é obrigatório.")]
         public Guid IdAutorPrincipal { get; set; }
+        public String? NomeAutorPrincipal { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Campo musica principal é obrigatório.")]
+        public Guid IdMusicaPrincipal { get; set; }
+
         public List<MusicaDto> Musicas { get; set; } = [];
-    }
 
-    public class MusicaDto
-    {
-        public Guid Id { get; set; }
-        [Required]
-        public string Nome { get; set; }
-        [Required]
-        public int Duracao { get; set; }
-        [Required]
-        public String Letra { get; set; }
-        [Required]
-        public Guid IdEstiloMusical { get; set; }
-        
-        public Boolean favorito { get; set; }
-
-        public String NomeEstiloMusical { get; set; }
-
-        public String Autores { get; set; }
+        public String? MusicasTexto { get; set; }
     }
 }

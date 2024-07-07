@@ -7,16 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Transacao\**" />
+    <EmbeddedResource Remove="Transacao\**" />
+    <None Remove="Transacao\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\SpotMusic.Domain\SpotMusic.Domain.csproj" />
     <ProjectReference Include="..\SpotMusic.Repository\SpotMusic.Repository.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Transacao\" />
   </ItemGroup>
 
 </Project>

@@ -2,10 +2,11 @@
 
 <div class="text-center">
     <h1 class="display-4">Músicas</h1>
+    <h6>Autor: @ViewBag.AutorNome</h6>
 </div>
 
 <div>
-    <a type="button" role="button" class="btn btn-primary" href="/Autor/Criar">Cadastrar musica</a>
+    <a type="button" role="button" class="btn btn-primary" href="/Musica/Criar?IdAutor=@ViewBag.IdAutor">Cadastrar musica</a>
 </div>
 
 <div>
@@ -16,6 +17,7 @@
                 <td>Nome</td>
                 <td>Letra</td>
                 <td>Autores</td>
+                <td>Álbum</td>
             </tr>
         </thead>
         <tbody>
@@ -26,7 +28,7 @@
                     <td>@item.Nome</td>
                     <td>@item.Letra</td>
                     <td>@item.Autores</td>
-                    <td></td>
+                    <td>@item.Album</td>
                 </tr>
             }
         </tbody>

@@ -1,0 +1,27 @@
+﻿@model SpotMusic.Application.Streaming.Dto.AdicionarMusicaDto
+
+<div class="text-center">
+    <h1 class="display-4">Adicionar musica ao album: @ViewBag.NomeAlbum</h1>
+    <h6>Autor: @ViewBag.AutorNome</h6>
+</div>
+
+<div>
+    <a type="button" role="button" class="btn btn-primary" href="/Album/Index?IdAutor=@ViewBag.IdAutor">Voltar</a>
+</div>
+<br />
+<form method="post" asp-controller="Album" asp-action="AdicionarMusica">
+    @Html.Hidden("IdAlbum", @ViewBag.IdAlbum, new { Type = "hidden" })
+    @Html.Hidden("IdAutor", @ViewBag.IdAutor, new { Type = "hidden" })
+    <p>Só serão listadas musicas sem álbum.</p>
+    <div class="row mb-3">
+        <label for="IdMusica" class="col-sm-2 col-form-label">Música</label>
+        <div class="col-sm-10">
+            <select asp-for="IdMusica" class="form-control" asp-items="@ViewBag.MusicasSemAlbum">
+                <option value="">Selecione a musica</option>
+            </select>
+            <span class="form-field-invalid" asp-validation-for="IdMusica"></span>
+        </div>
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary">Cadastrar</button>
+</form>

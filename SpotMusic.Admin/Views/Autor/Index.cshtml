@@ -16,7 +16,8 @@
                 <td>Nome</td>
                 <td>Descrição</td>
                 <td>Imagem</td>
-                <td>Musicas</td>
+                <td></td>
+                <td></td>
             </tr>
         </thead>
         <tbody>
@@ -28,6 +29,7 @@
                     <td>@item.Descricao</td>
                     <td><img src="@(item.Backdrop)" width="200" height="200" />  </td>
                     <td><a type="button" role="button" class="btn btn-primary" href="/Musica/Index?IdAutor=@item.Id">Musicas</a></td>
+                    <td><a type="button" role="button" class="btn btn-primary" href="/Album/Index?IdAutor=@item.Id">Álbuns</a></td>
                 </tr>
             }
         </tbody>

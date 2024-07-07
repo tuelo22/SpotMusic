@@ -1,1 +1,1 @@
-export const urlback = "https://localhost:44361";
+export const urlback = "https://localhost:7173";

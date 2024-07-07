@@ -1,0 +1,47 @@
+﻿@model IEnumerable<SpotMusic.Application.Streaming.Dto.AlbumDto>
+
+<div class="text-center">
+    <h1 class="display-4">Álbuns</h1>
+    @if (ViewBag.AutorNome != null)
+    {
+        <h6>Autor: @ViewBag.AutorNome</h6>
+    }
+</div>
+
+@if (ViewBag.IdAutor != null)
+{
+    <div>
+        <a type="button" role="button" class="btn btn-primary" href="/Album/Criar?IdAutor=@ViewBag.IdAutor">Cadastrar álbum</a>
+    </div>
+}
+
+<div>
+    <table class="table table-striped-columns">
+        <thead>
+            <tr>
+                <td>ID</td>
+                <td>Nome</td>
+                <td>Musicas</td>
+                <td>Capa</td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Nome</td>
+                    <td>@item.MusicasTexto</td>
+                    <td>
+                        @if (@item.Capa != null)
+                        {
+                            <img src="@(item.Capa)" width="200" height="200" />
+                        }
+                    </td>
+                    <td><a type="button" role="button" class="btn btn-primary" href="/Album/AdicionarMusica?IdAlbum=@item.Id">Adicionar musica</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

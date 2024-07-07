@@ -42,6 +42,7 @@ builder.Services.AddScoped<AutorService>();
 builder.Services.AddScoped<AlbumService>();
 builder.Services.AddScoped<CartaoService>();
 builder.Services.AddScoped<MusicaService>();
+builder.Services.AddScoped<EstiloMusicalService>();
 
 
 builder.Services.AddAuthentication(opt => {

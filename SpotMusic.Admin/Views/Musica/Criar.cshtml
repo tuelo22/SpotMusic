@@ -1,6 +1,13 @@
 ﻿@model SpotMusic.Application.Streaming.Dto.MusicaDto
 
-<form method="post" asp-controller="User" asp-action="Salvar">
+<div class="text-center">
+    <h1 class="display-4">Cadastrar musica</h1>
+    <h6>Autor: @ViewBag.AutorNome</h6>
+</div>
+
+<form method="post" asp-controller="Musica" asp-action="Salvar">
+    @Html.Hidden("IdAutor", @ViewBag.IdAutor, new { Type = "hidden" })
+    
     <div class="row mb-3">
         <label for="Nome" class="col-sm-2 col-form-label">Nome</label>
         <div class="col-sm-10">
@@ -8,18 +15,30 @@
             <span class="form-field-invalid" asp-validation-for="Nome"></span>
         </div>
     </div>
+     
     <div class="row mb-3">
-        <label for="Descricao" class="col-sm-2 col-form-label">Descrição</label>
+        <label for="IdEstiloMusical" class="col-sm-2 col-form-label">Estilo musical</label>
         <div class="col-sm-10">
-            @Html.TextAreaFor(x => x.Descricao, new { @class = "form-control", rows = 5, cols = 50 })
-            <span class="form-field-invalid" asp-validation-for="Descricao"></span>
+            <select asp-for="IdEstiloMusical" class="form-control" asp-items="@ViewBag.Estilos">
+                <option value="">Selecione um estilo musical</option>
+            </select>
+            <span class="form-field-invalid" asp-validation-for="IdEstiloMusical"></span>
         </div>
     </div>
+
     <div class="row mb-3">
-        <label for="Backdrop" class="col-sm-2 col-form-label">URL da imagem</label>
+        <label for="Duracao" class="col-sm-2 col-form-label">Duração</label>
         <div class="col-sm-10">
-            @Html.TextAreaFor(x => x.Backdrop, new { @class = "form-control", rows = 5, cols = 50 })
-            <span class="form-field-invalid" asp-validation-for="Backdrop"></span>
+            @Html.TextBoxFor(x => x.Duracao, new { @class = "form-control", Type = "number" })
+            <span class="form-field-invalid" asp-validation-for="Duracao"></span>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label for="Letra" class="col-sm-2 col-form-label">Letra</label>
+        <div class="col-sm-10">
+            @Html.TextAreaFor(x => x.Letra, new { @class = "form-control", rows = 5, cols = 50 })
+            <span class="form-field-invalid" asp-validation-for="Letra"></span>
         </div>
     </div>
 
