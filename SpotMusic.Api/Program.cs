@@ -54,7 +54,7 @@ builder.Services.AddAutoMapper(typeof(UsuarioProfile).Assembly);
 builder.Services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
     .AddIdentityServerAuthentication(options =>
     {
-        options.Authority = "https://localhost:7184";
+        options.Authority = "https://spotmusic-sts.azurewebsites.net";
         options.ApiName = "SpotMusic";
         options.ApiSecret = "SpotMusic";
         options.RequireHttpsMetadata = true;
