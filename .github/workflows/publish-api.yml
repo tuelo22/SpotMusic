@@ -27,6 +27,8 @@ env:
 on:
   push:
     branches: [ "master" ]
+    paths:
+      - SpotMusic.Api/**
   workflow_dispatch:
 
 permissions:
