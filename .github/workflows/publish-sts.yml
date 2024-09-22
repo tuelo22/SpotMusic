@@ -1,0 +1,50 @@
+name: SpotMusic STS Build
+
+env:
+  DOTNET_VERSION: '8'       
+
+on:
+  push:
+    branches: [ "master" ]
+    paths:
+      - SpotMusic.STS/**
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Set up dependency caching for faster builds
+        uses: actions/cache@v3
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+
+      - name: Build with dotnet
+        run: dotnet build ./SpotMusic.STS --configuration Release
+      
+      - name: Docker Login
+        uses: azure/docker-login@v1
+        with:
+          login-server: ${{secrets.REGISTRY_LOGIN_SERVER}}
+          username: ${{secrets.REGISTRY_USERNAME}}
+          password: ${{secrets.REGISTRY_PASSWORD}}
+      - name: Build image and push
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          file: SpotMusic.STS/Dockerfile
+          context: .
+          tags: ${{secrets.REGISTRY_LOGIN_SERVER}}/spotmusic-sts:${{github.sha}}
