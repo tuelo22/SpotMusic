@@ -4,6 +4,7 @@ using SpotMusic.Application.Admin;
 using SpotMusic.Application.Admin.Profile;
 using SpotMusic.Application.Conta;
 using SpotMusic.Application.Streaming;
+using SpotMusic.Application.Streaming.Storage;
 using SpotMusic.Repository;
 using SpotMusic.Repository.Repository;
 using SpotMusic.Repository.Repository.Admin;
@@ -35,6 +36,7 @@ builder.Services.AddScoped<AutorRepository>();
 builder.Services.AddScoped<EstiloMusicalRepository>();
 builder.Services.AddScoped<AlbumRepository>();
 builder.Services.AddScoped<MusicaRepository>();
+builder.Services.AddScoped<AutorCosmosRepository>();
 
 // Service
 builder.Services.AddScoped<UsuarioService>();
@@ -43,7 +45,8 @@ builder.Services.AddScoped<AlbumService>();
 builder.Services.AddScoped<CartaoService>();
 builder.Services.AddScoped<MusicaService>();
 builder.Services.AddScoped<EstiloMusicalService>();
-
+builder.Services.AddScoped<AzureStorageAccount>();
+builder.Services.AddScoped<AzureServiceBusService>();
 
 builder.Services.AddAuthentication(opt => {
     opt.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;

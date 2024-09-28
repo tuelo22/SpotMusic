@@ -21,9 +21,9 @@ namespace SpotMusic.Api.Controllers
 
         [HttpGet]
         [ProducesResponseType(typeof(List<AutorDto>), 200)]
-        public IActionResult GetAutores()
+        public async Task<IActionResult> GetAutores()
         {
-            var result = AutorService.Obter();
+            var result = await AutorService.Obter();
 
             return Ok(result);
         }
@@ -43,12 +43,12 @@ namespace SpotMusic.Api.Controllers
         }
 
         [HttpPost]
-        public IActionResult SeveAutor([FromBody] AutorDto autor)
+        public async Task<IActionResult> SeveAutor([FromBody] AutorDto autor)
         {
             if (ModelState is { IsValid: false })
                 return BadRequest();
 
-            var result = AutorService.Criar(autor);
+            var result = await AutorService.Criar(autor);
 
             return Created($"/autor/{result.Id}", result);
         }

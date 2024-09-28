@@ -8,9 +8,9 @@ namespace SpotMusic.Admin.Controllers
     [Authorize]
     public class AutorController(AutorService _AutorService) : Controller
     {
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var result = _AutorService.Obter();
+            var result = await _AutorService.Obter();
 
             return View(result);
         }
@@ -22,14 +22,14 @@ namespace SpotMusic.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Salvar(AutorDto dt)
+        public async Task<IActionResult> Salvar(AutorDto dt)
         {
             if (ModelState.IsValid == false)
             {
                 return View("Criar");
             }
 
-            _AutorService.Salvar(dt);
+            await _AutorService.Salvar(dt);
 
             return RedirectToAction("Index");
         }

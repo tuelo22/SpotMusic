@@ -10,7 +10,7 @@ namespace SpotMusic.Admin.Controllers
     [Authorize]
     public class AlbumController(AlbumService albumService, AutorService autorService, MusicaService musicaService ) : Controller
     {
-        public IActionResult Index(Guid? IdAutor)
+        public async Task<IActionResult> Index(Guid? IdAutor)
         {
             List<AlbumDto> albums = [];
 
@@ -18,7 +18,7 @@ namespace SpotMusic.Admin.Controllers
             {
                 albums = albumService.ObterPorAutor(IdAutor.Value);
 
-                var autor = autorService.Obter(IdAutor.Value);
+                var autor = await autorService.Obter(IdAutor.Value);
 
                 ViewBag.IdAutor = IdAutor.Value;
 

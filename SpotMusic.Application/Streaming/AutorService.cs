@@ -1,55 +1,57 @@
 ﻿using AutoMapper;
-using SpotMusic.Application.Admin.Dto;
 using SpotMusic.Application.Streaming.Dto;
-using SpotMusic.Domain.Admin.Aggregates;
+using SpotMusic.Application.Streaming.Storage;
 using SpotMusic.Domain.Streaming.Aggregates;
-using SpotMusic.Domain.Streaming.ValueObject;
 using SpotMusic.Repository.Repository;
-using SpotMusic.Repository.Repository.Admin;
 
 namespace SpotMusic.Application.Streaming
 {
-    public class AutorService
+    public class AutorService(
+        AutorRepository autorRepository, 
+        AutorCosmosRepository autorCosmosRepository, 
+        IMapper mapper,
+        AzureStorageAccount azureStorageAccount)
     {
-        private AutorRepository _autorRepository;
-        private IMapper mapper;
-
-        public AutorService(AutorRepository autorRepository, IMapper mapper)
+        public async Task<AutorDto> Criar (AutorDto Autordto)
         {
-            this._autorRepository = autorRepository;
-            this.mapper = mapper;
+            string urlBackDrop = string.Empty;
+
+            if (!string.IsNullOrEmpty(Autordto.Backdrop))
+            {
+                urlBackDrop = await azureStorageAccount.UploadImage(Autordto.Backdrop);
+            }
+
+            Autor autor = Autor.Criar(Autordto.Nome, Autordto.Descricao, urlBackDrop);
+
+            autorRepository.Save(autor);
+
+            await autorCosmosRepository.SaveOrUpate(autor, autor.AutorKey);
+
+            return mapper.Map<AutorDto>(autor);
         }
 
-        public AutorDto Criar (AutorDto Autordto)
+        public async Task<AutorDto?> Obter(Guid id)
         {
-            Autor autor = Autor.Criar(Autordto.Nome, Autordto.Descricao, Autordto.Backdrop);
-
-            this._autorRepository.Save(autor);
-
-            return this.mapper.Map<AutorDto>(autor);
-        }
-
-        public AutorDto? Obter(Guid id)
-        {
-            var result = _autorRepository.GetById(id);
+            var result = await autorCosmosRepository.ReadItem(id.ToString());
 
             if (result == null)
                 return null;
-            return this.mapper.Map<AutorDto>(result);
+            return mapper.Map<AutorDto>(result);
         }
 
-        public IEnumerable<AutorDto> Obter()
+        public async Task<IEnumerable<AutorDto>> Obter()
         {
-            var result = _autorRepository.GetAll().ToList();
+            var result = await autorCosmosRepository.ReadAllItem();
 
-            return this.mapper.Map<List<AutorDto>>(result);
+            return mapper.Map<List<AutorDto>>(result);
         }
 
-        public void Salvar(AutorDto dto)
+        public async Task Salvar(AutorDto dto)
         {
             var autor = mapper.Map<Autor>(dto);
 
-            _autorRepository.Save(autor);
+            autorRepository.Save(autor);
+            await autorCosmosRepository.SaveOrUpate(autor, autor.AutorKey);
         }
     }
 }

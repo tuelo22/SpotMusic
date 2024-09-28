@@ -9,24 +9,28 @@ namespace SpotMusic.Admin.Controllers
     [Authorize]
     public class MusicaController(MusicaService musicaService, EstiloMusicalService estiloMusicalService, AutorService autorService) : Controller
     {
-        public IActionResult Index(Guid IdAutor)
+        public async Task<IActionResult> Index(Guid IdAutor)
         {
             var result = musicaService.ObterMusicas(IdAutor);
 
-            ViewBag.AutorNome = autorService.Obter(IdAutor)?.Nome ?? string.Empty;
+            var autor = await autorService.Obter(IdAutor);
+
+            ViewBag.AutorNome = autor?.Nome ?? string.Empty;
 
             ViewBag.IdAutor = IdAutor;
 
             return View(result);
         }
 
-        public IActionResult Criar(Guid IdAutor)
+        public async Task<IActionResult> Criar(Guid IdAutor)
         {
             var result = estiloMusicalService.Obter();
 
             ViewBag.IdAutor = IdAutor;
 
-            ViewBag.AutorNome = autorService.Obter(IdAutor)?.Nome ?? string.Empty;
+            var autor = await autorService.Obter(IdAutor);
+
+            ViewBag.AutorNome = autor?.Nome ?? string.Empty;
 
             ViewBag.Estilos = new SelectList(result, "Id", "Nome");
 

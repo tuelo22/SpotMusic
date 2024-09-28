@@ -19,12 +19,12 @@ namespace SpotMusic.Api.Controllers
         }
 
         [HttpPost]
-        public IActionResult Criar(UsuarioDto usuario)
+        public async Task<IActionResult> Criar(UsuarioDto usuario)
         {
             if (ModelState is { IsValid: false })
                 return BadRequest();
 
-            var result = this._usuarioService.Criar(usuario);
+            var result = await this._usuarioService.Criar(usuario);
 
             return Ok(result);
         }
@@ -41,12 +41,12 @@ namespace SpotMusic.Api.Controllers
         }
 
         [HttpPost("/login")]
-        public IActionResult login(LoginRequeste login) 
+        public async Task<IActionResult> login(LoginRequeste login) 
         {
             if (ModelState is { IsValid: false })
                 return BadRequest();
 
-            var result = this._usuarioService.Autenticar(login.Email, login.Senha);
+            var result = await this._usuarioService.Autenticar(login.Email, login.Senha);
 
             if (result == null)
                 return BadRequest(new { Error = "Dados incorretos."});

@@ -3,6 +3,8 @@ using SpotMusic.Application.Conta.Dto;
 using SpotMusic.Application.Conta.Request;
 using SpotMusic.Domain.Conta.Aggregates;
 using SpotMusic.Domain.Extensions;
+using SpotMusic.Domain.Notificacao.Aggregates;
+using SpotMusic.Domain.Notificacao.Enum;
 using SpotMusic.Domain.Streaming.Aggregates;
 using SpotMusic.Domain.Transacao.Aggregates;
 using SpotMusic.Repository.Repository;
@@ -16,25 +18,32 @@ namespace SpotMusic.Application.Conta
         private PlanoRepository PlanoRepository;
 
         private CartaoService CartaoService;
+        private AzureServiceBusService ServiceBusService { get; set; }
 
-        public UsuarioService(IMapper mapper, UsuarioRepository usuarioRepository, PlanoRepository planoRepository, CartaoService cartaoService)
+        public UsuarioService(
+            IMapper mapper,
+            UsuarioRepository usuarioRepository,
+            PlanoRepository planoRepository,
+            CartaoService cartaoService,
+            AzureServiceBusService azureServiceBusService)
         {
             Mapper = mapper;
             UsuarioRepository = usuarioRepository;
             PlanoRepository = planoRepository;
             CartaoService = cartaoService;
+            ServiceBusService = azureServiceBusService;
         }
 
-        public UsuarioDto Criar(UsuarioDto dto)
+        public async Task<UsuarioDto> Criar(UsuarioDto dto)
         {
-            if (this.UsuarioRepository.Exists(x=> x.Email == dto.Email))
+            if (this.UsuarioRepository.Exists(x => x.Email == dto.Email))
             {
                 throw new Exception("Usuário já existente na base.");
             }
 
             Plano? plano = PlanoRepository.GetById(dto.PlanoId);
 
-            if(plano == null)
+            if (plano == null)
             {
                 throw new Exception("Plano não localizado.");
             }
@@ -43,11 +52,20 @@ namespace SpotMusic.Application.Conta
 
             Cartao cartao = CartaoService.ConsultarCartaoAtivo(dto.Cartao);
 
-            usuario.CriarConta(dto.Nome, dto.Email, dto.Senha, dto.Telefone,dto.DataNascimento, plano, cartao);
+            usuario.CriarConta(dto.Nome, dto.Email, dto.Senha, dto.Telefone, dto.DataNascimento, plano, cartao);
 
             this.UsuarioRepository.Save(usuario);
 
             var result = this.Mapper.Map<UsuarioDto>(usuario);
+
+            Notificacao notificacao = Notificacao.Criar(
+                "Bem vindo !",
+                $"Seja bem vindo ao Spotify Like {usuario.Nome}",
+                TipoNotificacao.Sistema, usuario, null);
+
+            var notificacaodto = this.Mapper.Map<NotificacaoDto>(notificacao);
+
+            await this.ServiceBusService.SendMessage(notificacaodto);
 
             return result;
         }
@@ -62,7 +80,7 @@ namespace SpotMusic.Application.Conta
             return this.Mapper.Map<UsuarioDto>(usuario);
         }
 
-        public UsuarioDto? Autenticar(string email, string senha)
+        public async Task<UsuarioDto?> Autenticar(string email, string senha)
         {
             var SenhaCriptografada = senha.Criptografar();
 
@@ -70,6 +88,17 @@ namespace SpotMusic.Application.Conta
 
             if (usuario == null)
                 return null;
+
+            Notificacao notificacao = Notificacao.Criar(
+                "Alerta",
+                $"{usuario.Nome} acabou de fazer login as {DateTime.Now}",
+                TipoNotificacao.Sistema,
+                usuario,
+                null);
+
+            var notificacaodto = this.Mapper.Map<NotificacaoDto>(notificacao);
+
+            await this.ServiceBusService.SendMessage(notificacaodto);
 
             return this.Mapper.Map<UsuarioDto>(usuario);
         }

@@ -14,6 +14,8 @@ namespace SpotMusic.Repository.Mapping.Streaming
             builder.Property(x => x.Nome).IsRequired().HasMaxLength(50);
             builder.Property(x => x.Descricao).HasMaxLength(500);
             builder.Property(x => x.Backdrop).HasMaxLength(500);
+
+            builder.Ignore(x => x.AutorKey);
         }
     }
 }
